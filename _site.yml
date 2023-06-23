@@ -73,6 +73,6 @@ navbar:
         - text: "Exercises - R script"
           href: worksheets/exercises.R
     - icon: fab fa-github
-      href: https://github.com/oliviergimenez/bayesian-cr-workshop
+      href: https://github.com/oliviergimenez/bayesian-hmm-cr-workshop-valencia
 
 output: distill::distill_article
