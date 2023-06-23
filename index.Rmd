@@ -1,0 +1,70 @@
+---
+title: "Bayesian capture-recapture inference with hidden Markov models"
+description: "A two-day workshop with `R` and `Nimble`"
+site: distill::distill_website
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+**What**: This is a workshop on Bayesian inference of animal demography. Hopefully, you will learn about how to infer demographic parameters (e.g. survival, dispersal). Our hope is to provide you with what you need to go your own path. The event is free of charge, and video-recorded. 
+
+**For whom**: This is a workshop for ecologists. No previous experience with `Nimble` or Bayesian statistics is assumed, but knowledge of `R` is required. 
+
+**How**: Through a combination of lectures and live demonstrations, you will get acquainted with the Bayesian approach, MCMC methods and the `R` `Nimble` package to fit single-site, multi-site, multi-state and multi-event models to capture-recapture data within the hidden Markov modeling (HMM) framework. 
+
+**Who**: [O. Gimenez](https://twitter.com/oaggimenez)
+
+**When**: July 12-13, 2023
+
+**Where**: València [VIBASS](http://vabar.es/events/vibass6-course/)
+
+### Program 
+
++ **Day 1**
+1. Welcoming words (9am-9:30am)
+2. Crash course on Bayesian statistics and MCMC algorithms (9:30am-11am)
+3. Free the modeler in you: Introduction to Nimble (11:30am-12:30pm)
+4. What you see is not what you get: Hidden Markov models and capture-recapture data (2pm-3:30pm)
+5. Dead or alive: Survival estimation - part 1 (4pm-5pm)
+
++ **Day 2**
+5. Dead or alive: Survival estimation - part 2 (9am-10:30am)
+6. On the move: Transition estimation (11am-12:30pm)
+7. Known knowns, unknown knowns and unknowns: Uncertainty in state assignment (2pm-3:30pm)
+8. Skip your coffee break: Speed up MCMC convergence (4pm-5pm)
+9. Take-home messages (5pm-5:30pm)
+
+### Requirements
+
++ Install [`R`](https://cloud.r-project.org/) and [`RStudio`](https://rstudio.com/products/rstudio/download/#download). 
+
++ Install `Nimble` following [these guidelines](https://r-nimble.org/download). Then run the following code in `R`. If that runs without error, you're all set. If not, please get in touch with us.
+
+    ```{r eval = FALSE, echo = TRUE}
+    library(nimble)
+    code <- nimbleCode({
+    y ~ dnorm(0,1)
+    })
+    model <- nimbleModel(code)
+    cModel <- compileNimble(model)
+    ```
+    
++ Install the following `R` packages: `tidyverse`, `MCMCvis`, `here` and `nimbleEcology`. You can install them all at once by running the following code in `R`:
+
+    ```{r eval = FALSE, echo = TRUE}
+    install.packages(c("tidyverse", "MCMCvis", "here", "nimbleEcology"))
+    ```
+
+### To-do list
+
++ Add examples of sensitivity analyses.
++ Make class number match name of live demos html and R scripts files. 
++ Add messages in the video recordings about typos in the slides. 
++ In Nimble code for multievent models, change observation matrix at first encounter omega.init into omega.firste to avoid confusion with vector of initial state probabilities. 
+
+### Reuse {.appendix}
+
+Text and figures are licensed under Creative Commons Attribution [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Any computer code (R, HTML, CSS, etc.) in slides and worksheets, including in slide and worksheet sources, is also licensed under [MIT](https://github.com/oliviergimenez/bayesian-cr-workshop/blob/master/LICENSE.md). 
+

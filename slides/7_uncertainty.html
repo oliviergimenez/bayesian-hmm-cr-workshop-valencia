@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Known knowns, unknown knowns and unknowns: Uncertainty in state assignment</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="The team" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="slides-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, title-slide
+
+# Known knowns, unknown knowns and unknowns: Uncertainty in state assignment
+### The team
+### last updated: 2021-05-18
+
+---
+
+
+
+
+
+## Uncertainty in state assignment
+
+Multievent models extend multistate models with uncertainty in state assignment
+
+???
+
++ In this module, we're going to talk about multievent models.
++ Multievent models extend multistate models with uncertainty in state assignment.
++ Let's see some examples to fix ideas. 
++ These examples are from published papers which used multievent models. 
+
+--
+
++ Breeding status in female roe deer is ascertained based on fawn detection
+
+--
+
++ Sex status is ascertained based on morphological criteria in Audouin's gulls
+
+--
+
++ Disease status in house finches is ascertained based on birds' eyes examination
+
+--
+
++ Hybrid status in wolves is ascertained based on genetics
+
+--
+
++ Dominance status in wolves is ascertained based on heterogeneity in detection
+
+--
+
+We need to explicitly consider state assignment in a model
+
+???
+
++ The common thing to all these examples is that.
++ We need to explicitly consider state assignment in a model.
+
+--
+
+HMMs to the rescue!
+
+???
+
++ And to do that, we'll use HMMs again! 
+
+---
+## Examples
+
+&lt;br&gt;
+
++ Testing life-history trade-offs while accounting for uncertainty in breeding status
+
++ Quantifying disease dynamics while accounting for uncertainty in disease status
+
++ Estimating survival while accounting for individual heterogeneity in detection
+
+???
+
++ In this module, I'll go through 3 examples. 
++ Testing life-history trade-offs while accounting for uncertainty in breeding status.
++ Quantifying disease dynamics while accounting for uncertainty in disease status.
++ Estimating survival while accounting for individual heterogeneity in detection.
+
+---
+## Examples
+
+&lt;br&gt;
+
++ **Testing life-history trade-offs while accounting for uncertainty in breeding status**
+
++ Quantifying disease dynamics while accounting for uncertainty in disease status
+
++ Estimating survival while accounting for individual heterogeneity in detection
+
+
+---
+background-image: url("img/sooty.jpg")
+background-size: cover
+
+### &lt;span style="color: white;"&gt;Sooty shearwater (David Boyle)&lt;/span&gt;
+
+
+---
+# Uncertainty in breeding status
+
++ 3 states
+    + breeding (B)
+    + non-breeding (NB)
+    + dead (D)
+
++ 4 observations
+    + not encountered (0)
+    + found, ascertained as breeder (1)
+    + found, ascertained as non-breeder (2)
+    + found, status unknown (3)
+
+???
+
++ We still have 3 states, breeding, non-breeding and dead.
++ With regard to observations, a bird may be not encountered.
++ It may also be encountered, but in contrast with multistate CR data, we don't know its state for sure. 
++ It may be found and ascertained or classified as breeder. 
++ It may be found and ascertained or classified as non-breeder. 
++ It may be found be we are unable to determine whether it's breeding or non-breeding.  
+
+---
+class: middle
+### How states generate observations
+
+.center.nogap[
+![](7_uncertainty_files/figure-html/unnamed-chunk-1-1.svg)&lt;!-- --&gt;
+]
+
+???
+
++ Now how do the states generate the observations?
+
+---
+class: middle
+### How states generate observations
+
+.center.nogap[
+![](7_uncertainty_files/figure-html/unnamed-chunk-2-1.svg)&lt;!-- --&gt;
+]
+
+
+---
+class: middle
+### How states generate observations
+
+.center.nogap[
+![](7_uncertainty_files/figure-html/unnamed-chunk-3-1.svg)&lt;!-- --&gt;
+]
+
+
+
+---
+class: middle
+### How states generate observations
+
+.center.nogap[
+![](7_uncertainty_files/figure-html/unnamed-chunk-4-1.svg)&lt;!-- --&gt;
+]
+
+
+
+
+---
+class: middle
+### How states generate observations
+
+.center.nogap[
+![](7_uncertainty_files/figure-html/unnamed-chunk-5-1.svg)&lt;!-- --&gt;
+]
+
+???
+
++ To wrap up each live state can generate 3 observations. 
++ The only deterministic link is that between the dead state and the observation non-encountered.
++ Cause if you're dead, you cannot be detected for sure. 
+
+---
+### HMM model for breeding states with uncertainty
+
+Vector of initial state probabilities
+
+$$
+`\begin{matrix}
+&amp; \\
+\mathbf{\delta} = 
+    \left ( \vphantom{ \begin{matrix} 12 \end{matrix} } \right .
+\end{matrix}`
+\hspace{-1.2em}
+`\begin{matrix}
+    z_t=B &amp; z_t=NB &amp; z_t=D \\ \hdashline
+\pi_B &amp; 1 - \pi_{B} &amp; 0\\ 
+\end{matrix}`
+\hspace{-0.2em}
+`\begin{matrix}
+&amp; \\
+\left . \vphantom{ \begin{matrix} 12 \end{matrix} } \right )
+    \begin{matrix}
+    \end{matrix}
+\end{matrix}`
+$$
++ `\(\pi_B\)` is the probability that a newly encountered individual is a breeder
+
++ `\(\pi_{NB} = 1 - \pi_B\)` is the probability that a newly encountered individual is a non-breeder
+
+???
+
++ OK now let’s specify the model. 
++ First thing we need, and it’s a big difference with multistate models, we need initial state probabilities cause we cannot assign states to individuals w/ certainty. 
++ Let's define pi_B the prob that a newly encountered individual is a breeding individual.
++ We write down the prob for each state at first encounter. We have pi_B, then the prob of being a NB is the complementary. And the prob of being dead at first encounter is 0 of course. 
+
+
+---
+### HMM model for breeding states with uncertainty
+
+Transition matrix
+
+$$
+`\begin{matrix}
+&amp; \\
+\mathbf{\Gamma} = 
+    \left ( \vphantom{ \begin{matrix} 12 \\ 12 \\ 12 \end{matrix} } \right .
+\end{matrix}`
+\hspace{-1.2em}
+`\begin{matrix}
+    z_t=B &amp; z_t=NB &amp; z_t=D \\ \hdashline
+\phi_B (1-\psi_{BNB}) &amp; \phi_B \psi_{BNB} &amp; 1 - \phi_B\\ 
+\phi_{NB} \psi_{NBB} &amp; \phi_{NB} (1-\psi_{NBB}) &amp; 1 - \phi_{NB}\\ 
+0 &amp; 0 &amp; 1
+\end{matrix}`
+\hspace{-0.2em}
+`\begin{matrix}
+&amp; \\
+\left . \vphantom{ \begin{matrix} 12 \\ 12 \\ 12 \end{matrix} } \right )
+    \begin{matrix}
+    z_{t-1}=B \\ z_{t-1}=NB \\ z_{t-1}=D
+    \end{matrix}
+\end{matrix}`
+$$
+
++ `\(\phi_B\)` is breeder survival, `\(\phi_{NB}\)` that of non-breeders.
+
++ `\(\psi_{BNB}\)` is the probability for an individual breeding a year to be a non-breeder the next year.
+
++ `\(\psi_{NBB}\)` is the probability for an non-breeder individual to breeder the next year.
+
+???
+
++ The transition parameters are in a matrix similar to the one we used for multistate models.  
+
+---
+### HMM model for breeding states with uncertainty
+
+Observation matrix
+
+$$
+`\begin{matrix}
+&amp; \\
+\mathbf{\Omega} = 
+    \left ( \vphantom{ \begin{matrix} 12 \\ 12 \\ 12\end{matrix} } \right .
+\end{matrix}`
+\hspace{-1.2em}
+`\begin{matrix}
+    y_t=0 &amp; y_t=1 &amp; y_t=2 &amp; y_t=3\\ \hdashline
+1 - p_B &amp; p_B \beta_B &amp; 0 &amp; p_B (1-\beta_B) \\ 
+1-p_{NB} &amp; 0 &amp; p_{NB} \beta_{NB} &amp; p_{NB} (1-\beta_{NB})\\ 
+1 &amp; 0 &amp; 0 &amp; 0
+\end{matrix}`
+\hspace{-0.2em}
+`\begin{matrix}
+&amp; \\
+\left . \vphantom{ \begin{matrix} 12 \\ 12 \\ 12\end{matrix} } \right )
+    \begin{matrix}
+    z_{t}=B \\ z_{t}=NB \\ z_{t}=D
+    \end{matrix}
+\end{matrix}`
+$$
+
++ `\(\beta_B\)` is the probability to assign an individual in state B to state B.
+
++ `\(\beta_{NB}\)` is the probability to assign an individual in state NB to state NB.
+
++ `\(p_B\)` is the detection probability of breeders, `\(p_{NB}\)` that of non-breeders.
+
+???
+
++ The main difference between multistate and multievent models is here, in the observation parameters. 
++ We introduce two new parameters. 
++ deltaB: prob. to correctly assign an indiv. that is in state B to state B
++ deltaNB: prob. to correctly assign an indiv. that is in state NB to state NB
+
++ We put everything in a matrix, as usual. The observation matrix. 
+
++ In rows we have the states, breeding, non-breeding and dead. 
++ In columns, at the same occasion, we have the observation, detected and ascertained B, 
+detected and ascertained NB, detected and state unknown, and not detected. 
++ For example, the prob of being detected and assigned to the state B, given that you’re in state B is the product of the detection prob in B and delta the prob of correctly assigning a B individual to state B. 
+
+
+---
+### HMM model for breeding states with uncertainty
+
+Because animals are all captured, `\(p_B = p_{NB} = 1\)` at first encounter:
+
+$$
+`\begin{matrix}
+&amp; \\
+    \left ( \vphantom{ \begin{matrix} 12 \\ 12 \\ 12\end{matrix} } \right .
+\end{matrix}`
+\hspace{-1.2em}
+`\begin{matrix}
+    y_t=0 &amp; y_t=1 &amp; y_t=2 &amp; y_t=3\\ \hdashline
+ 0 &amp; \beta_B &amp; 0 &amp; (1-\beta_B)\\ 
+0 &amp; 0 &amp; \beta_{NB} &amp; (1-\beta_{NB})\\ 
+1 &amp; 0 &amp; 0 &amp; 0
+\end{matrix}`
+\hspace{-0.2em}
+`\begin{matrix}
+&amp; \\
+\left . \vphantom{ \begin{matrix} 12 \\ 12 \\ 12\end{matrix} } \right )
+    \begin{matrix}
+    z_{t}=B \\ z_{t}=NB \\ z_{t}=D
+    \end{matrix}
+\end{matrix}`
+$$
+
+Note: Breeding assessment is unaffected.
+
+???
+
++ Then at first encounter, what happens is that step 1 of encounter is degenerate because individuals are all captured. Just set all the p’s to 1 in the encounter matrix. 
+
++ The breeding assessment matrix remains unchanged. 
+
+
+---
+### Our model `\((\phi_B, \phi_{NB}, \psi_{BNB}, \psi_{NBB}, p_B, p_{NB}, \beta_B, \beta_{NB}, \pi)\)`
+
+.tiny-font[
+
+```r
+multievent &lt;- nimbleCode({
+  # -------------------------------------------------
+  # Parameters:
+  # phiB: survival probability state B
+  # phiNB: survival probability state NB
+  # psiBNB: transition probability from B to NB
+  # psiNBB: transition probability from NB to B
+  # pB: recapture probability B
+  # pNB: recapture probability NB
+  # piB prob. of being in initial state breeder
+  # betaNB prob to ascertain the breeding status of an individual encountered as non-breeder
+  # betaB prob to ascertain the breeding status of an individual encountered as breeder
+  # -------------------------------------------------
+  # States (z):
+  # 1 alive B
+  # 2 alive NB
+  # 3 dead
+  # Observations (y):  
+  # 1 = non-detected
+  # 2 = seen and ascertained as breeder
+  # 3 = seen and ascertained as non-breeder
+  # 4 = not ascertained
+  # -------------------------------------------------
+...
+```
+]
+
+
+---
+### Our model `\((\phi_B, \phi_{NB}, \psi_{BNB}, \psi_{NBB}, p_B, p_{NB}, \beta_B, \beta_{NB}, \pi)\)`
+
+.small-font[
+
+```r
+multievent &lt;- nimbleCode({
+...
+  # Priors
+  phiB ~ dunif(0, 1)
+  phiNB ~ dunif(0, 1)
+  psiBNB ~ dunif(0, 1)
+  psiNBB ~ dunif(0, 1)
+  pB ~ dunif(0, 1)
+  pNB ~ dunif(0, 1)
+  piB ~ dunif(0, 1)
+  betaNB ~ dunif(0, 1)
+  betaB ~ dunif(0, 1)
+...
+```
+]
+
+
+---
+### Our model `\((\phi_B, \phi_{NB}, \psi_{BNB}, \psi_{NBB}, p_B, p_{NB}, \beta_B, \beta_{NB}, \pi)\)`
+
+.small-font[
+
+```r
+multievent &lt;- nimbleCode({
+...  
+  # vector of initial stats probs
+  delta[1] &lt;- piB # prob. of being in initial state B
+  delta[2] &lt;- 1 - piB # prob. of being in initial state NB
+  delta[3] &lt;- 0 # prob. of being in initial state dead
+...  
+```
+]
+
+
+---
+### Our model `\((\phi_B, \phi_{NB}, \psi_{BNB}, \psi_{NBB}, p_B, p_{NB}, \beta_B, \beta_{NB}, \pi)\)`
+
+.small-font[
+
+```r
+multievent &lt;- nimbleCode({
+...  
+  # probabilities of state z(t+1) given z(t)
+  gamma[1,1] &lt;- phiB * (1 - psiBNB)
+  gamma[1,2] &lt;- phiB * psiBNB
+  gamma[1,3] &lt;- 1 - phiB
+  gamma[2,1] &lt;- phiNB * psiNBB
+  gamma[2,2] &lt;- phiNB * (1 - psiNBB)
+  gamma[2,3] &lt;- 1 - phiNB
+  gamma[3,1] &lt;- 0
+  gamma[3,2] &lt;- 0
+  gamma[3,3] &lt;- 1
+...
+```
+]
+
+
+---
+### Our model `\((\phi_B, \phi_{NB}, \psi_{BNB}, \psi_{NBB}, p_B, p_{NB}, \beta_B, \beta_{NB}, \pi)\)`
+
+.small-font[
+
+```r
+multievent &lt;- nimbleCode({
+...  
+  # probabilities of y(t) given z(t)
+  omega[1,1] &lt;- 1 - pB             # Pr(alive B t -&gt; non-detected t)
+  omega[1,2] &lt;- pB * betaB         # Pr(alive B t -&gt; detected B t)
+  omega[1,3] &lt;- 0                  # Pr(alive B t -&gt; detected NB t)
+  omega[1,4] &lt;- pB * (1 - betaB)   # Pr(alive B t -&gt; detected U t)
+  omega[2,1] &lt;- 1 - pNB            # Pr(alive NB t -&gt; non-detected t)
+  omega[2,2] &lt;- 0                  # Pr(alive NB t -&gt; detected B t)
+  omega[2,3] &lt;- pNB * betaNB       # Pr(alive NB t -&gt; detected NB t)
+  omega[2,4] &lt;- pNB * (1 - betaNB) # Pr(alive NB t -&gt; detected U t)
+  omega[3,1] &lt;- 1                  # Pr(dead t -&gt; non-detected t)
+  omega[3,2] &lt;- 0                  # Pr(dead t -&gt; detected N t)
+  omega[3,3] &lt;- 0                  # Pr(dead t -&gt; detected NB t)
+  omega[3,4] &lt;- 0                  # Pr(dead t -&gt; detected U t)
+...
+```
+]
+
+
+---
+### Our model `\((\phi_B, \phi_{NB}, \psi_{BNB}, \psi_{NBB}, p_B, p_{NB}, \beta_B, \beta_{NB}, \pi)\)`
+
+.small-font[
+
+```r
+multievent &lt;- nimbleCode({
+...  
+  # probabilities of y(first) given z(first)
+  omega.init[1,1] &lt;- 0          # Pr(alive B t = 1 -&gt; non-detected t = 1)
+  omega.init[1,2] &lt;- betaB      # Pr(alive B t = 1 -&gt; detected B t = 1)
+  omega.init[1,3] &lt;- 0          # Pr(alive B t = 1 -&gt; detected NB t = 1)
+  omega.init[1,4] &lt;- 1 - betaB  # Pr(alive B t = 1 -&gt; detected U t = 1)
+  omega.init[2,1] &lt;- 0          # Pr(alive NB t = 1 -&gt; non-detected t = 1)
+  omega.init[2,2] &lt;- 0          # Pr(alive NB t = 1 -&gt; detected B t = 1)
+  omega.init[2,3] &lt;- betaNB     # Pr(alive NB t = 1 -&gt; detected NB t = 1)
+  omega.init[2,4] &lt;- 1 - betaNB # Pr(alive NB t = 1 -&gt; detected U t = 1)
+  omega.init[3,1] &lt;- 1          # Pr(dead t = 1 -&gt; non-detected t = 1)
+  omega.init[3,2] &lt;- 0          # Pr(dead t = 1 -&gt; detected N t = 1)
+  omega.init[3,3] &lt;- 0          # Pr(dead t = 1 -&gt; detected NB t = 1)
+  omega.init[3,4] &lt;- 0          # Pr(dead t = 1 -&gt; detected U t = 1)
+...
+```
+]
+
+
+
+---
+### Our model `\((\phi_B, \phi_{NB}, \psi_{BNB}, \psi_{NBB}, p_B, p_{NB}, \beta_B, \beta_{NB}, \pi)\)`
+
+.small-font[
+
+```r
+multievent &lt;- nimbleCode({
+...
+  # likelihood 
+  for (i in 1:N){
+    # latent state at first capture
+    z[i,first[i]] ~ dcat(delta[1:3])
+    y[i,first[i]] ~ dcat(omega.init[z[i,first[i]],1:4])
+    for (t in (first[i]+1):K){
+      # z(t) given z(t-1)
+      z[i,t] ~ dcat(gamma[z[i,t-1],1:3])
+      # y(t) given z(t)
+      y[i,t] ~ dcat(omega[z[i,t],1:4])
+    }
+  }
+})
+```
+]
+
+---
+## Results
+
+.center[
+
+```
+       mean   sd 2.5%  50% 97.5% Rhat n.eff
+betaB  0.19 0.01 0.16 0.19  0.21 1.01   332
+betaNB 0.76 0.05 0.66 0.76  0.86 1.01    65
+pB     0.56 0.03 0.51 0.56  0.62 1.06   229
+pNB    0.60 0.04 0.53 0.60  0.67 1.03   142
+phiB   0.81 0.02 0.78 0.81  0.85 1.01   312
+phiNB  0.84 0.02 0.80 0.84  0.87 1.00   354
+piB    0.71 0.03 0.66 0.71  0.76 1.02   115
+psiBNB 0.23 0.02 0.18 0.22  0.27 1.00   214
+psiNBB 0.25 0.04 0.17 0.25  0.34 1.00    95
+```
+]
+
++ Breeders are difficult to assigned to the correct state.
++ Non-breeders are relatively well classified as non-breeders. 
++ No cost of breeding, neither on survival, nor on future reproduction.
+
+---
+
+.center.nogap[
+![](7_uncertainty_files/figure-html/unnamed-chunk-14-1.svg)&lt;!-- --&gt;
+]
+
+
+---
+background-color: #234f66
+## &lt;span style="color:white"&gt;Live demo&lt;/span&gt;
+
+.center[
+![](img/b5b086f9cc403008ba7be5dd508cfed2.gif)
+]
+
+
+
+---
+## Examples
+
+&lt;br&gt;
+
++ Testing life-history trade-offs while accounting for uncertainty in breeding status
+
++ **Quantifying disease dynamics while accounting for uncertainty in disease status**
+
++ Estimating survival while accounting for individual heterogeneity in detection
+
+???
+
++ Let's have a look to another example. 
++ Very similar to the previous example. 
+
+---
+## Animal epidemiology with uncertain disease states
+
++ We consider a system of an emerging pathogen *Mycoplasma gallisepticum* Edward and Kanarek and its host the house finch, *Carpodacus mexicanus* Müller. 
+
+
+---
+background-image: url("img/infectedhousefinch.jpg")
+background-size: cover
+
+### &lt;span style="color: white;"&gt;A house finch with a heavy infection (Jim Mondok).&lt;/span&gt;
+
+---
+## Animal epidemiology with uncertain disease states
+
++ We consider a system of an emerging pathogen *Mycoplasma gallisepticum* Edward and Kanarek and its host the house finch, *Carpodacus mexicanus* Müller. 
+
++ [Faustino et al. (2004)](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/j.0021-8790.2004.00840.x) and [Conn &amp; Cooch (2009)](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/j.1365-2664.2008.01597.x) studied impact of pathogen on host demographic rates.
+
++ Problem is true disease state for some encountered individuals is ambiguous because seen at distance.
+
++ In this context, how to study the dynamics of the disease?
+
+
+---
+# States and observations
+
++ 3 states
+    + healthy (H)
+    + ill (I)
+    + dead (D)
+    
++ 4 observations
+    + not seen (0)
+    + captured healthy (1)
+    + captured ill (2)
+    + health status unknown, i.e. seen at distance (3)
+
+
+---
+class: middle
+### How states generate observations.
+
+.center.nogap[
+![](7_uncertainty_files/figure-html/unnamed-chunk-15-1.svg)&lt;!-- --&gt;
+]
+
+
+
+
+---
+class: middle
+### How states generate observations.
+
+.center.nogap[
+![](7_uncertainty_files/figure-html/unnamed-chunk-16-1.svg)&lt;!-- --&gt;
+]
+
+
+
+---
+class: middle
+### How states generate observations.
+
+.center.nogap[
+![](7_uncertainty_files/figure-html/unnamed-chunk-17-1.svg)&lt;!-- --&gt;
+]
+
+
+
+---
+class: middle
+### How states generate observations.
+
+.center.nogap[
+![](7_uncertainty_files/figure-html/unnamed-chunk-18-1.svg)&lt;!-- --&gt;
+]
+
+
+
+
+---
+class: middle
+### How states generate observations.
+
+.center.nogap[
+![](7_uncertainty_files/figure-html/unnamed-chunk-19-1.svg)&lt;!-- --&gt;
+]
+
+
+---
+### HMM model for disease states with uncertainty
+
+Vector of initial state probabilities
+
+$$
+`\begin{matrix}
+&amp; \\
+\mathbf{\delta} = 
+    \left ( \vphantom{ \begin{matrix} 12 \end{matrix} } \right .
+\end{matrix}`
+\hspace{-1.2em}
+`\begin{matrix}
+    z_t=H &amp; z_t=I &amp; z_t=D \\ \hdashline
+\pi_H &amp; 1 - \pi_{H} &amp; 0\\ 
+\end{matrix}`
+\hspace{-0.2em}
+`\begin{matrix}
+&amp; \\
+\left . \vphantom{ \begin{matrix} 12 \end{matrix} } \right )
+    \begin{matrix}
+    \end{matrix}
+\end{matrix}`
+$$
+
++ `\(\pi_H\)` is the probability that a newly encountered individual is healthy.
+
++ `\(\pi_{I} = 1 - \pi_H\)` is the probability that a newly encountered individual is ill.
+
+---
+### HMM model for disease states with uncertainty
+
+Transition matrix
+
+$$
+`\begin{matrix}
+&amp; \\
+\mathbf{\Gamma} = 
+    \left ( \vphantom{ \begin{matrix} 12 \\ 12 \\ 12 \end{matrix} } \right .
+\end{matrix}`
+\hspace{-1.2em}
+`\begin{matrix}
+    z_t=H &amp; z_t=I &amp; z_t=D \\ \hdashline
+\phi_H (1-\psi_{HI}) &amp; \phi_H \psi_{HI} &amp; 1 - \phi_H\\ 
+\phi_{I} \psi_{IH} &amp; \phi_{I} (1-\psi_{IH}) &amp; 1 - \phi_{I}\\ 
+0 &amp; 0 &amp; 1
+\end{matrix}`
+\hspace{-0.2em}
+`\begin{matrix}
+&amp; \\
+\left . \vphantom{ \begin{matrix} 12 \\ 12 \\ 12 \end{matrix} } \right )
+    \begin{matrix}
+    z_{t-1}=H \\ z_{t-1}=I \\ z_{t-1}=D
+    \end{matrix}
+\end{matrix}`
+$$
+
++ `\(\phi_H\)` is the survival probability of healthy individuals, `\(\phi_I\)` that of ill individuals.
+
++ `\(\psi_{HI}\)` is the probability of getting sick, `\(\psi_{IH}\)` that of recovering from the disease.
+
+
+---
+### HMM model for disease states with uncertainty
+
+Transition matrix, incurable disease
+
+$$
+`\begin{matrix}
+&amp; \\
+\mathbf{\Gamma} = 
+    \left ( \vphantom{ \begin{matrix} 12 \\ 12 \\ 12 \end{matrix} } \right .
+\end{matrix}`
+\hspace{-1.2em}
+`\begin{matrix}
+    z_t=H &amp; z_t=I &amp; z_t=D \\ \hdashline
+\phi_H (1-\psi_{HI}) &amp; \phi_H \psi_{HI} &amp; 1 - \phi_H\\ 
+0 &amp; \phi_{I}  &amp; 1 - \phi_{I}\\ 
+0 &amp; 0 &amp; 1
+\end{matrix}`
+\hspace{-0.2em}
+`\begin{matrix}
+&amp; \\
+\left . \vphantom{ \begin{matrix} 12 \\ 12 \\ 12 \end{matrix} } \right )
+    \begin{matrix}
+    z_{t-1}=H \\ z_{t-1}=I \\ z_{t-1}=D
+    \end{matrix}
+\end{matrix}`
+$$
+
++ No possibility of recovering from the disease, that is `\(\psi_{IH} = 0\)`. Once you get sick, you remain sick `\(\psi_{II} = 1 - \psi_{IH} = 1\)`.
+
++ For analysing the house finch data, we allow recovering from the disease, and we will use transition matrix from previous slide. 
+
+
+---
+### HMM model for disease states with uncertainty
+
+Observation matrix
+
+$$
+`\begin{matrix}
+&amp; \\
+\mathbf{\Omega} = 
+    \left ( \vphantom{ \begin{matrix} 12 \\ 12 \\ 12\end{matrix} } \right .
+\end{matrix}`
+\hspace{-1.2em}
+`\begin{matrix}
+    y_t=0 &amp; y_t=1 &amp; y_t=2 &amp; y_t=3\\ \hdashline
+1-p_H &amp; p_H \beta_H &amp; 0 &amp; p_H (1-\beta_H)\\ 
+1-p_I &amp; 0 &amp; p_{I} \beta_{I} &amp; p_{I} (1-\beta_{I})\\ 
+1 &amp; 0 &amp; 0 &amp; 0
+\end{matrix}`
+\hspace{-0.2em}
+`\begin{matrix}
+&amp; \\
+\left . \vphantom{ \begin{matrix} 12 \\ 12 \\ 12\end{matrix} } \right )
+    \begin{matrix}
+    z_{t}=H \\ z_{t}=I \\ z_{t}=D
+    \end{matrix}
+\end{matrix}`
+$$
+
++ `\(\beta_H\)` is the probability to assign a healthy individual to state H.
+
++ `\(\beta_{I}\)` is the probability to assign a sick individual to state I.
+
++ `\(p_H\)` is the detection probability of healthy individuals, `\(p_I\)` that of sick individuals.
+
+
+---
+### Results
+
+.center[
+
+```
+      mean   sd 2.5%  50% 97.5% Rhat n.eff
+betaH 0.99 0.01 0.97 0.99  1.00 1.01  1421
+betaI 0.05 0.01 0.03 0.05  0.08 1.00  6477
+pH    0.17 0.02 0.13 0.17  0.22 1.01   331
+pI    0.58 0.10 0.41 0.57  0.80 1.04   220
+phiH  0.88 0.02 0.84 0.88  0.92 1.01   360
+phiI  0.99 0.01 0.96 0.99  1.00 1.00  1004
+pi    0.96 0.01 0.93 0.96  0.98 1.00  4190
+psiHI 0.22 0.04 0.16 0.22  0.32 1.02   311
+psiIH 0.46 0.08 0.32 0.45  0.63 1.02   392
+```
+]
+
++ Healthy individuals are correctly assigned, while infected individuals are difficult to ascertain. 
++ Sounds like being infected has an effect on detection and survival. Run models without effects and compare with WAIC for formal testing. 
++ Infection rate is 22%, recovery rate is 46%.
+
+---
+
+.center.nogap[
+![](7_uncertainty_files/figure-html/unnamed-chunk-21-1.svg)&lt;!-- --&gt;
+]
+
+
+---
+background-color: black
+# &lt;span style="color:white"&gt;Live demo&lt;/span&gt;
+
+&lt;br&gt;
+&lt;br&gt;
+
+.center[
+![](img/r_1051694_ifmHZ.gif)
+]
+
+
+
+---
+## Examples
+
+&lt;br&gt;
+
++ Testing life-history trade-offs while accounting for uncertainty in breeding status
+
++ Quantifying disease dynamics while accounting for uncertainty in disease status
+
++ **Estimating survival while accounting for individual heterogeneity in detection**
+
+???
+
++ Our last example is about individual heterogeneity and how to account for it with HMMs. 
+
+---
+## Individual heterogeneity with finite mixtures. 
+
++ Gray wolf is a social species with hierarchy in packs which may reflect in species demography.
+
+
+???
+
++ As an example, we'll work with gray wolves. 
+
+---
+background-image: url("img/wolfdominance.jpg")
+background-size: cover
+
+
+---
+## Individual heterogeneity with finite mixtures. 
+
++ Gray wolf is a social species with hierarchy in packs which may reflect in demography.
+
++ Shirley Pledger in a series of papers developed heterogeneity models in which individuals are assigned in two or more classes with class-specific survival/detection probabilities. 
+
++ [Cubaynes et al. (2010)](https://conbio.onlinelibrary.wiley.com/doi/abs/10.1111/j.1523-1739.2009.01431.x) used HMMs to account for heterogeneity in the detection process due to social status, see also [Pradel et al. (2009)](https://link.springer.com/chapter/10.1007%2F978-0-387-78151-8_36).
+
+???
+
+Dominant individuals tend to use path more often than others, and these paths are where we look for scats. 
+
+---
+# Individual heterogeneity
+
++ 3 states
+    + alive in class 1 (A1)
+    + alive in class 2 (A2)
+    + dead (D)
+    
++ 4 observations
+    + not captured (0)
+    + captured (1)
+
+
+---
+### HMM model for individual heterogeneity
+
+Vector of initial state probabilities
+
+$$
+`\begin{matrix}
+&amp; \\
+\mathbf{\delta} = 
+    \left ( \vphantom{ \begin{matrix} 12 \end{matrix} } \right .
+\end{matrix}`
+\hspace{-1.2em}
+`\begin{matrix}
+    z_t=A1 &amp; z_t=A2 &amp; z_t=D \\ \hdashline
+\pi &amp; 1 - \pi &amp; 0\\ 
+\end{matrix}`
+\hspace{-0.2em}
+`\begin{matrix}
+&amp; \\
+\left . \vphantom{ \begin{matrix} 12 \end{matrix} } \right )
+    \begin{matrix}
+    \end{matrix}
+\end{matrix}`
+$$
+
++ `\(\pi\)` is the probability of being alive in class 1.
+
++ `\(1 - \pi\)` is the probability of being in class 2.
+
+
+---
+### HMM model for individual heterogeneity
+
+Transition matrix
+
+$$
+`\begin{matrix}
+&amp; \\
+\mathbf{\Gamma} = 
+    \left ( \vphantom{ \begin{matrix} 12 \\ 12 \\ 12 \end{matrix} } \right .
+\end{matrix}`
+\hspace{-1.2em}
+`\begin{matrix}
+    z_t=A1 &amp; z_t=A2 &amp; z_t=D \\ \hdashline
+\phi  &amp; 0 &amp; 1 - \phi\\ 
+0 &amp; \phi &amp; 1 - \phi\\ 
+0 &amp; 0 &amp; 1
+\end{matrix}`
+\hspace{-0.2em}
+`\begin{matrix}
+&amp; \\
+\left . \vphantom{ \begin{matrix} 12 \\ 12 \\ 12 \end{matrix} } \right )
+    \begin{matrix}
+    z_{t-1}=A1 \\ z_{t-1}=A2 \\ z_{t-1}=D
+    \end{matrix}
+\end{matrix}`
+$$
+
++ `\(\phi\)` is the survival probability, which could be made heterogeneous. 
+
+---
+### HMM model for individual heterogeneity
+
+Transition matrix, with change in heterogeneity class
+
+$$
+`\begin{matrix}
+&amp; \\
+\mathbf{\Gamma} = 
+    \left ( \vphantom{ \begin{matrix} 12 \\ 12 \\ 12 \end{matrix} } \right .
+\end{matrix}`
+\hspace{-1.2em}
+`\begin{matrix}
+    z_t=A1 &amp; z_t=A2 &amp; z_t=D \\ \hdashline
+\phi (1-\psi_{12}) &amp; \phi \psi_{12} &amp; 1 - \phi\\ 
+\phi \psi_{21} &amp; \phi (1-\psi_{21}) &amp; 1 - \phi\\ 
+0 &amp; 0 &amp; 1
+\end{matrix}`
+\hspace{-0.2em}
+`\begin{matrix}
+&amp; \\
+\left . \vphantom{ \begin{matrix} 12 \\ 12 \\ 12 \end{matrix} } \right )
+    \begin{matrix}
+    z_{t-1}=A1 \\ z_{t-1}=A2 \\ z_{t-1}=D
+    \end{matrix}
+\end{matrix}`
+$$
+
++ `\(\psi_{12}\)` is the probability for an individual to change class of heterogeneity, from 1 to 2. 
+
++ `\(\psi_{21}\)` is the probability for an individual to change class of heterogeneity, from 2 to 1. 
+
+
+---
+### HMM model for individual heterogeneity
+
+Observation matrix
+
+$$
+`\begin{matrix}
+&amp; \\
+\mathbf{\Omega} = 
+    \left ( \vphantom{ \begin{matrix} 12 \\ 12 \\ 12\end{matrix} } \right .
+\end{matrix}`
+\hspace{-1.2em}
+`\begin{matrix}
+    y_t=0 &amp; y_t=1\\ \hdashline
+1 - p_1 &amp; p_1\\ 
+1 - p_2 &amp; p_2\\ 
+1 &amp; 0
+\end{matrix}`
+\hspace{-0.2em}
+`\begin{matrix}
+&amp; \\
+\left . \vphantom{ \begin{matrix} 12 \\ 12 \\ 12\end{matrix} } \right )
+    \begin{matrix}
+    z_{t}=A1 \\ z_{t}=A2 \\ z_{t}=D
+    \end{matrix}
+\end{matrix}`
+$$
+
++ `\(p_1\)` is detection for individuals in class 1, and `\(p_2\)` that of individuals in class 2. 
+
+---
+
+## Results
+
+.center[
+
+```
+    mean   sd 2.5%  50% 97.5% Rhat n.eff
+p1  0.38 0.09 0.23 0.38  0.56 1.04   210
+p2  0.50 0.12 0.25 0.50  0.73 1.01   229
+phi 0.81 0.05 0.71 0.81  0.91 1.04   317
+pi  0.62 0.12 0.36 0.63  0.83 1.02   164
+```
+]
+
++ We have lowly detectable individuals (class A1 with `\(p_1\)`) in proportion 62%.
+
++ And highly (or so) detectable individuals (class A2 with `\(p_2\)`) in proportion 38%.
+
++ N ote that interpretation of classes is made a posteriori. 
+
++ Survival is 81%. 
+
+---
+
+.center.nogap[
+![](7_uncertainty_files/figure-html/unnamed-chunk-23-1.svg)&lt;!-- --&gt;
+]
+
+
+---
+### HMM model for individual heterogeneity
+
++ You may consider more classes, and select among models, see [Cubaynes et al. (2012)](https://oliviergimenez.github.io/pubs/Cubaynesetal2011MEE.pdf).
+
++ You may also go for a non-parametric approach and let the data tell you how many classes you need. This is relatively easy to do in Nimble, see [Turek et al. (2021)](https://arxiv.org/abs/2007.10163). 
+
++ More about individual heterogeneity in [Gimenez et al. (2018)](https://oliviergimenez.github.io/pubs/GimenezCamGaillard2017Oikos.pdf).
+
+---
+class: middle, center
+## HMMs to analyse capture-recapture data
+
+With the same data, ask further questions, just consider different states.
+
+---
+background-image: url("https://media.giphy.com/media/3o8dFn5CXJlCV9ZEsg/source.gif")
+background-size: cover
+
+
+---
+background-image: url("img/archer.png")
+background-size: cover
+
+
+---
+### How to make our models remember?
+
++ So far, the dynamics of the states are first-order Makovian.
+
++ The site where you will be depends only on the site where you are, and not on the sites you were previously. 
+
++ How to relax this assumption, and go second-order Markovian?
+
++ Memory models were initially proposed by [Hestbeck et al. (1991)](https://esajournals.onlinelibrary.wiley.com/doi/abs/10.2307/2937193) and [Brownie et al. (1993)](https://www.jstor.org/stable/2532259?origin=crossref&amp;seq=1#metadata_info_tab_contents), then formulated as HMMs in [Rouan et al. (2009)](https://link.springer.com/article/10.1198/jabes.2009.06108). See also [Cole et al. (2014)](https://onlinelibrary.wiley.com/doi/10.1002/ece3.1037). 
+
+---
+### Remember HMM model for dispersal between 2 sites
+
+Transition matrix
+
+$$
+`\begin{matrix}
+&amp; \\
+\mathbf{\Gamma} = 
+    \left ( \vphantom{ \begin{matrix} 12 \\ 12 \\ 12 \end{matrix} } \right .
+\end{matrix}`
+\hspace{-1.2em}
+`\begin{matrix}
+    z_t=A &amp; z_t=B &amp; z_t=D \\ \hdashline
+\phi_A (1-\psi_{AB}) &amp; \phi_A \psi_{AB} &amp; 1 - \phi_A\\ 
+\phi_B \psi_{BA} &amp; \phi_B (1-\psi_{BA}) &amp; 1 - \phi_B\\ 
+0 &amp; 0 &amp; 1
+\end{matrix}`
+\hspace{-0.2em}
+`\begin{matrix}
+&amp; \\
+\left . \vphantom{ \begin{matrix} 12 \\ 12 \\ 12 \end{matrix} } \right )
+    \begin{matrix}
+    z_{t-1}=A \\ z_{t-1}=B \\ z_{t-1}=D
+    \end{matrix}
+\end{matrix}`
+$$
+
+Observation matrix
+
+$$
+`\begin{matrix}
+&amp; \\
+\mathbf{\Omega} = 
+    \left ( \vphantom{ \begin{matrix} 12 \\ 12 \\ 12 \end{matrix} } \right .
+\end{matrix}`
+\hspace{-1.2em}
+`\begin{matrix}
+    y_t=0 &amp; y_t=1 &amp; y_t=2 \\ \hdashline
+1 - p_A &amp; p_A &amp; 0\\ 
+1 - p_B &amp; 0 &amp; p_B\\ 
+1 &amp; 0 &amp; 0
+\end{matrix}`
+\hspace{-0.2em}
+`\begin{matrix}
+&amp; \\
+\left . \vphantom{ \begin{matrix} 12 \\ 12 \\ 12 \end{matrix} } \right )
+    \begin{matrix}
+    z_{t}=A \\ z_{t}=B \\ z_{t}=D
+    \end{matrix}
+\end{matrix}`
+$$
+
+---
+## HMM formulation of the memory model
+
+--
+
++ To keep track of the sites previously visited, the trick is to consider states as being pairs of sites occupied
+
+--
+
++ States
+     + AA is for alive in site A at `\(t\)` and alive in site A at `\(t-1\)`
+     + AB is for alive in site A at `\(t\)` and alive in site B at `\(t-1\)`
+     + BA is for alive in site B at `\(t\)` and alive in site A at `\(t-1\)`
+     + BB is for alive in site B at `\(t\)` and alive in site B at `\(t-1\)`
+     + D is for dead
+
+--
+
++ Observations
+     + 0 not captured
+     + 1 captured at site A
+     + 2 captured at site B
+
+
+---
+## HMM formulation of the memory model
+
+Vector of initial state probabilities
+
+$$
+`\begin{matrix}
+&amp; \\
+\mathbf{\delta} = 
+    \left ( \vphantom{ \begin{matrix} 12 \end{matrix} } \right .
+\end{matrix}`
+\hspace{-1.2em}
+`\begin{matrix}
+    z_t=AA &amp; z_t=AB &amp; z_t=BA &amp; z_t=BB &amp;z_t=D \\ \hdashline
+\pi_{AA} &amp; \pi_{AB} &amp; \pi_{BA} &amp; \pi_{BB} &amp; 0\\ 
+\end{matrix}`
+\hspace{-0.2em}
+`\begin{matrix}
+&amp; \\
+\left . \vphantom{ \begin{matrix} 12 \end{matrix} } \right )
+    \begin{matrix}
+    \end{matrix}
+\end{matrix}`
+$$
++ where `\(\pi_{BB} = 1 - (\pi_{AA} + \pi_{AB} + \pi_{BA})\)`,
+
++ and `\(\pi_{ij}\)` at site `\(j\)` when first captured at `\(t\)` and site `\(i\)` at `\(t - 1\)`.
+
+
+---
+## HMM formulation of the memory model
+
+Transition matrix
+
+$$
+`\begin{matrix}
+&amp; \\
+\mathbf{\Gamma} = 
+    \left ( \vphantom{ \begin{matrix} 12 \\ 12 \\ 12 \\ 12 \\ 12\end{matrix} } \right .
+\end{matrix}`
+\hspace{-1.2em}
+`\begin{matrix}
+    z_t=AA &amp; z_t=AB &amp; z_t=BA &amp; z_t=BB &amp; z_t=D \\ \hdashline
+\phi_{AAA} &amp; \phi_{AAB} &amp; 0 &amp; 0 &amp; 1 - \phi_{AAA} - \phi_{AAB}\\ 
+0 &amp; 0 &amp; \phi_{ABA} &amp; \phi_{ABB} &amp; 1 - \phi_{ABA} - \phi_{ABB}\\ 
+\phi_{BAA} &amp; \phi_{BAB} &amp; 0 &amp; 0 &amp; 1 - \phi_{BAA} - \phi_{BAB}\\ 
+0 &amp; 0 &amp; \phi_{BBA} &amp; \phi_{BBB} &amp; 1 - \phi_{BBA} - \phi_{BBB}\\ 
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1
+\end{matrix}`
+\hspace{-0.2em}
+`\begin{matrix}
+&amp; \\
+\left . \vphantom{ \begin{matrix} 12 \\ 12 \\ 12 \\ 12 \\ 12\end{matrix} } \right )
+    \begin{matrix}
+    z_t=AA \\ z_t=AB \\ z_t=BA \\ z_t=BB \\ z_t=D
+    \end{matrix}
+\end{matrix}`
+$$
++ `\(\phi_{ijk}\)` is probability to be in site `\(k\)` at time `\(t + 1\)` for an individual
+present in site `\(j\)` at `\(t\)` and in site `\(i\)` at `\(t - 1\)`
+
+---
+## HMM formulation of the memory model
+
+Transition matrix, alternate parameterization
+
+$$
+`\begin{matrix}
+&amp; \\
+\mathbf{\Gamma} = 
+    \left ( \vphantom{ \begin{matrix} 12 \\ 12 \\ 12 \\ 12 \\ 12\end{matrix} } \right .
+\end{matrix}`
+\hspace{-1.2em}
+`\begin{matrix}
+    z_t=AA &amp; z_t=AB &amp; z_t=BA &amp; z_t=BB &amp; z_t=D \\ \hdashline
+\phi \psi_{AAA} &amp; \phi (1 - \psi_{AAA}) &amp; 0 &amp; 0 &amp; 1 - \phi\\ 
+0 &amp; 0 &amp; \phi (1 - \psi_{ABB}) &amp; \phi \psi_{ABB} &amp; 1 - \phi\\ 
+\phi \psi_{BAA} &amp; \phi (1 - \psi_{BAA}) &amp; 0 &amp; 0 &amp; 1 - \phi\\ 
+0 &amp; 0 &amp; \phi (1-\psi_{BBB}) &amp; \phi \psi_{BBB} &amp; 1 - \phi\\ 
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1
+\end{matrix}`
+\hspace{-0.2em}
+`\begin{matrix}
+&amp; \\
+\left . \vphantom{ \begin{matrix} 12 \\ 12 \\ 12 \\ 12 \\ 12\end{matrix} } \right )
+    \begin{matrix}
+    z_t=AA \\ z_t=AB \\ z_t=BA \\ z_t=BB \\ z_t=D
+    \end{matrix}
+\end{matrix}`
+$$
++ `\(\phi\)` is the probability of surviving from one occasion to the next. 
+
++ `\(\psi_{ijj}\)` is the probability an animal stays at the same site `\(j\)` given that it was at site `\(i\)` on the previous occasion.
+
+
+---
+## HMM formulation of the memory model
+
+Observation matrix
+
+$$
+`\begin{matrix}
+&amp; \\
+\mathbf{\Omega} = 
+    \left ( \vphantom{ \begin{matrix} 12 \\ 12 \\ 12 \\ 12 \\ 12\end{matrix} } \right .
+\end{matrix}`
+\hspace{-1.2em}
+`\begin{matrix}
+    y_t=0 &amp; y_t=1 &amp; y_t=2 \\ \hdashline
+1 - p_A &amp; p_A &amp; 0\\ 
+1 - p_B &amp; 0 &amp; p_B\\ 
+1 - p_A &amp; p_A &amp; 0\\ 
+1 - p_B &amp; 0 &amp; p_B\\ 
+1 &amp; 0 &amp; 0
+\end{matrix}`
+\hspace{-0.2em}
+`\begin{matrix}
+&amp; \\
+\left . \vphantom{ \begin{matrix} 12 \\ 12 \\ 12 \\ 12 \\ 12\end{matrix} } \right )
+    \begin{matrix}
+    z_t=AA \\ z_t=AB \\ z_t=BA \\ z_t=BB \\ z_t=D
+    \end{matrix}
+\end{matrix}`
+$$
+
+
+---
+## Further reading
+
++ Seminal paper by Pradel (2005) [Multievent: An Extension of Multistate Capture–Recapture Models to Uncertain States](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1541-0420.2005.00318.x). Biometrics, 61: 442-447.
+
++ Dupuis (1995) had a similar idea for the Arnason-Schwarz model: Dupuis, J. (1995) [Bayesian estimation of movement and survival probabilities from capture-recapture data](https://academic.oup.com/biomet/article-abstract/82/4/761/252161). Biometrika. Vol. 82, pp 761-772.
+
++ See also for a review Gimenez et al. (2012) [Estimating demographic parameters using hidden process dynamic models](https://oliviergimenez.github.io/pubs/Gimenezetal2012TPB.pdf). Theoretical Population Biology 82: 307-316.
+
+
+
+---
+background-color: #234f66
+## &lt;span style="color:white"&gt;Live demo&lt;/span&gt;
+
+.center[
+![](img/b5b086f9cc403008ba7be5dd508cfed2.gif)
+]
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"slideNumberFormat": ""
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
