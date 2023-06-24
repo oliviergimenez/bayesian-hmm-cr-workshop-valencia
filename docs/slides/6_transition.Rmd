@@ -1,6 +1,5 @@
 ---
 title: "On the move: Transition estimation"
-author: "The team"
 date: "last updated: `r Sys.Date()`"
 output:
   xaringan::moon_reader:

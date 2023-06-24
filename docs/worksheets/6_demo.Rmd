@@ -1,6 +1,5 @@
 ---
 title: "Class 7 live demo: Uncertainty in state assignment"
-author: "The team"
 date: "last updated: `r Sys.Date()`"
 output: html_document
 ---

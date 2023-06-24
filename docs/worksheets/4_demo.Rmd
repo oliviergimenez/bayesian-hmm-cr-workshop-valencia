@@ -1,6 +1,5 @@
 ---
 title: "Class 5 live demo: Survival estimation"
-author: "The team"
 date: "last updated: `r Sys.Date()`"
 output: html_document
 ---
@@ -374,10 +373,10 @@ data.frame(model = c("(phi,p)",
                      "(phit,p)",
                      "(phi,pt)",
                      "(phit,pt)"),
-           WAIC = c(mcmc.phip$WAIC, 
-             mcmc.phitp$WAIC, 
-             mcmc.phipt$WAIC, 
-             mcmc.phitpt$WAIC))
+           WAIC = c(mcmc.phip$WAIC$WAIC, 
+             mcmc.phitp$WAIC$WAIC, 
+             mcmc.phipt$WAIC$WAIC, 
+             mcmc.phitpt$WAIC$WAIC))
 ```
 
 

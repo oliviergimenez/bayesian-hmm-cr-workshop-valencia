@@ -1,6 +1,5 @@
 ---
 title: "Crash course on Bayesian statistics and MCMC algorithms"
-author: "The team"
 date: "last updated: `r Sys.Date()`"
 output:
   xaringan::moon_reader:
@@ -19,7 +18,7 @@ options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(comment = "")
 library(tidyverse)
 theme_set(theme_light(14))
-update_geom_defaults("point", list(size = 2)) 
+update_geom_defaults("point", list(linewidth = 2)) 
 library(here)
 library(nimble)
 ```
@@ -218,7 +217,7 @@ dfprior <- data.frame(p = p, prior = prior)
 dfprior %>%
   ggplot() + 
   geom_line(aes(x = p, y = prior), 
-            size = 1.5,
+            linewidth = 1.5,
             color = wesanderson::wes_palettes$Royal1[1])
 #plot(p, dbeta(p,a,b), type='l', lwd=3)
 ```
@@ -246,7 +245,7 @@ numerical_posterior <- data.frame(p = p, posterior = numerator(p)/denominator)
 numerical_posterior %>%
   ggplot() + 
   geom_line(aes(x = p, y = posterior), 
-            size = 1.5, 
+            linewidth = 1.5, 
             col = wesanderson::wes_palettes$Royal1[2], 
             alpha = 0.5)
 ```
@@ -263,12 +262,12 @@ dfexpposterior <- data.frame(p = p, explicit_posterior = explicit_posterior)
 ggplot() + 
   geom_line(data = numerical_posterior, 
             aes(x = p, y = posterior), 
-            size = 1.5, 
+            linewidth = 1.5, 
             col = wesanderson::wes_palettes$Royal1[2],
             alpha = 0.5) + 
   geom_line(data = dfexpposterior, 
             aes(x = p, y = explicit_posterior),
-            size = 1.5, 
+            linewidth = 1.5, 
             col = wesanderson::wes_palettes$Royal1[3], 
             linetype = "dashed")
 ```
@@ -282,18 +281,18 @@ ggplot() +
 ggplot() + 
   geom_line(data = numerical_posterior, 
             aes(x = p, y = posterior), 
-            size = 1.5, 
+            linewidth = 1.5, 
             col = wesanderson::wes_palettes$Royal1[2], 
             alpha = 0.5) + 
   geom_line(data = dfexpposterior, 
             aes(x = p, y = explicit_posterior),
             col = wesanderson::wes_palettes$Royal1[3], 
-            size = 1.5, 
+            linewidth = 1.5, 
             linetype = "dashed") + 
   geom_line(data = dfprior,
             aes(x = p, y = prior),
             col = wesanderson::wes_palettes$Royal1[1],
-            size = 1.5)
+            linewidth = 1.5)
 ```
 ]
 

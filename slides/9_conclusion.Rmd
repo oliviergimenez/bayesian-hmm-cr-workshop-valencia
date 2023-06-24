@@ -1,6 +1,5 @@
 ---
 title: "Conclusions"
-author: "The team"
 date: "last updated: `r Sys.Date()`"
 output:
   xaringan::moon_reader:
@@ -187,5 +186,5 @@ class: middle, center
 
 + And last, a book is on its way. Based on the material we used for the workshop and more stuff. 
 + Also half the book will be about case studies reproducing analysis from published papers. 
-+ More in 2022 hopefully. 
++ More in 2024 hopefully. 
 

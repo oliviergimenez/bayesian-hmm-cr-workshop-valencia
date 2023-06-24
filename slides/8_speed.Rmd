@@ -1,6 +1,5 @@
 ---
 title: "Skip your coffee break: Speed up MCMC convergence"
-author: "The team"
 date: "last updated: `r Sys.Date()`"
 output:
   xaringan::moon_reader:
@@ -630,8 +629,6 @@ background-color: #234f66
 + Turek, D., de Valpine, P. & Paciorek, C.J. [Efficient Markov chain Monte Carlo sampling for hierarchical hidden Markov models](https://doi.org/10.1007/s10651-016-0353-z) *Environ Ecol Stat* 23: 549–564 (2016).
 
 + Ponisio, L.C., de Valpine, P., Michaud, N., and Turek, D. [One size does not fit all: Customizing MCMC methods for hierarchical models using NIMBLE](https://doi.org/10.1002/ece3.6053) *Ecol Evol.* 10: 2385–2416 (2020).
-
-+ Nimble workshop to come 26-28 May, check out [here](https://r-nimble.org/nimble-virtual-short-course-may-26-28).
 
 + Nimble workshop material online available [here](https://github.com/nimble-training).
 

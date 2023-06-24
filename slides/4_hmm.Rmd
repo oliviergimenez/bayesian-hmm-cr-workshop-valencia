@@ -1,6 +1,5 @@
 ---
 title: "What you see is not what you get: Hidden Markov models and capture-recapture data"
-author: "The team"
 date: "last updated: `r Sys.Date()`"
 output:
   xaringan::moon_reader:

@@ -1,6 +1,5 @@
 ---
 title: "Class 8 live demo: Skip your coffee break: Speed up MCMC convergence"
-author: "The team"
 date: "last updated: `r Sys.Date()`"
 output: html_document
 ---

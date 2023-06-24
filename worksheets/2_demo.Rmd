@@ -1,6 +1,5 @@
 ---
 title: "Class 3 live demo: Intro to Nimble"
-author: "The team"
 date: "last updated: `r Sys.Date()`"
 output: html_document
 ---
