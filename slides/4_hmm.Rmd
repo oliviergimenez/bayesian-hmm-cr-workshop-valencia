@@ -28,6 +28,7 @@ library(nimble)
 library(MCMCvis)
 ```
 
+
 # Back to our survival example
 
 --
@@ -180,7 +181,7 @@ z %>%
 <br>
 
 .center.nogap[
-```{r, engine = 'tikz', echo = FALSE, fig.width = 7.5, fig.asp = 0.618, dev = "svg"}
+```{r, engine = 'tikz', echo = FALSE, fig.width = 7.5, fig.asp = 0.618}
 \usetikzlibrary{arrows, fit, positioning, automata}
 \begin{tikzpicture}[node distance = 2cm]
 \tikzset{state/.style = {circle, draw, minimum size = 30pt, scale = 3, line width=1pt}}
@@ -213,7 +214,7 @@ z %>%
 <br>
 
 .center.nogap[
-```{r, engine = 'tikz', echo = FALSE, fig.width = 7.5, fig.asp = 0.618, dev = "svg"}
+```{r, engine = 'tikz', echo = FALSE, fig.width = 7.5, fig.asp = 0.618}
 \usetikzlibrary{arrows, fit, positioning, automata}
 \begin{tikzpicture}[node distance = 2cm]
 \tikzset{state/.style = {circle, draw, minimum size = 30pt, scale = 3, line width=1pt}}
@@ -236,10 +237,10 @@ z %>%
 
 ???
 
-+ In our model, going from a winter to the next is driven by survival and mortality processes. 
-+ The probability of going from alive or 1 to alive or 1 is phi. 
++ In our model, going from a winter to the next is driven by survival and mortality processes.
++ The probability of going from alive or 1 to alive or 1 is phi.
 + Then from alive 1 to dead 2 is 1 - phi.
-+ And the probability to remain dead is 1, that is to go from state 2 dead to state 2 for dead. 
++ And the probability to remain dead is 1, that is to go from state 2 dead to state 2 for dead.
 
 ---
 # Transition matrix
@@ -250,16 +251,16 @@ z %>%
 
 ???
 
-+ The engine of a Markov model is the transition matrix. 
-+ This matrix or table gathers the probabilities of transition between states from one occasion to the next. 
++ The engine of a Markov model is the transition matrix.
++ This matrix or table gathers the probabilities of transition between states from one occasion to the next.
 
 --
 
-+ For example, the probability of transitioning from state alive at $t-1$ to state alive at $t$ is $\Pr(z_t = 1 | z_{t-1} = 1) = \gamma_{1,1}$. It is the survival probability $\phi$. 
++ For example, the probability of transitioning from state alive at $t-1$ to state alive at $t$ is $\Pr(z_t = 1 | z_{t-1} = 1) = \gamma_{1,1}$. It is the survival probability $\phi$.
 
 ???
 
-+ For example, the probability of transitioning from state alive at $t-1$ to state alive at $t$ is $\Pr(z_t = 1 | z_{t-1} = 1) = \gamma_{1,1}$. It is the survival probability $\phi$. 
++ For example, the probability of transitioning from state alive at $t-1$ to state alive at $t$ is $\Pr(z_t = 1 | z_{t-1} = 1) = \gamma_{1,1}$. It is the survival probability $\phi$.
 
 
 --
@@ -284,13 +285,13 @@ z %>%
 + These probabilities can be packed in a transition matrix $\mathbf{\Gamma}$:
 
 \begin{align*}
-\mathbf{\Gamma} = 
-\left(\begin{array}{cc} 
-\gamma_{1,1} & \gamma_{1,2}\\ 
+\mathbf{\Gamma} =
+\left(\begin{array}{cc}
+\gamma_{1,1} & \gamma_{1,2}\\
 \gamma_{2,1} & \gamma_{2,2}
 \end{array}\right) =
-\left(\begin{array}{cc} 
-\phi & 1 - \phi\\ 
+\left(\begin{array}{cc}
+\phi & 1 - \phi\\
 0 & 1
 \end{array}\right)
 \end{align*}
@@ -307,7 +308,7 @@ Transition matrix:
 $$
 \begin{matrix}
 & \\
-\mathbf{\Gamma} = 
+\mathbf{\Gamma} =
     \left ( \vphantom{ \begin{matrix} 12 \\ 12 \end{matrix} } \right .
 \end{matrix}
 \hspace{-1.2em}
@@ -327,8 +328,8 @@ $$
 $$
 ???
 
-+ Take some time to navigate through this matrix. 
-+ From in rows, the origin, to in columns, the destination. 
++ Take some time to navigate through this matrix.
++ From in rows, the origin, to in columns, the destination.
 + For example...
 
 ---
@@ -336,20 +337,20 @@ $$
 
 --
 
-+ A Markov process has to start somewhere. 
++ A Markov process has to start somewhere.
 
 ???
 
-+ A Markov process has to start somewhere. 
++ A Markov process has to start somewhere.
 
 --
 
-+ We need the probabilities of initial states, i.e. states at $t = 1$. 
++ We need the probabilities of initial states, i.e. states at $t = 1$.
 
 ???
 
 + In other words, we need the probabilities of initial states
-+ i.e. states at $t = 1$. 
++ i.e. states at $t = 1$.
 
 
 --
@@ -358,22 +359,22 @@ $$
 
 ???
 
-+ We will denote delta this vector. 
++ We will denote delta this vector.
 + It gathers the probability of being in each initial states.
 + Here alive 1 and dead 2.
 
 --
 
-+ Here we assume that all animals are alive at first winter, i.e. $\Pr(z_1 = 1) = 1$ and $\Pr(z_1 = 2) = 0$. 
++ Here we assume that all animals are alive at first winter, i.e. $\Pr(z_1 = 1) = 1$ and $\Pr(z_1 = 2) = 0$.
 
 ???
 
 + All individuals are marked and release in first winter.
 + Therefore alive when first captured.
-+ Which means that they are all in state 1 alive for sure. 
++ Which means that they are all in state 1 alive for sure.
 
 ---
-# Likelihood 
+# Likelihood
 
 \begin{align*}
 \Pr(\mathbf{z}) &= \Pr(z_T, z_{T-1}, z_{T-2}, \ldots, z_1) \color{white}{\Pr(z_{T-1}, z_{T-2},\ldots, z_1) \Pr(z_{T-2}, \ldots, z_1)} \\
@@ -381,11 +382,11 @@ $$
 
 ???
 
-+ OK now that we've defined a Markov model, we need its likelihood to apply the Bayes theorem. 
-+ The likelihood is the probability of the data, given the model. Here the data are the z. 
++ OK now that we've defined a Markov model, we need its likelihood to apply the Bayes theorem.
++ The likelihood is the probability of the data, given the model. Here the data are the z.
 
 ---
-# Likelihood 
+# Likelihood
 
 \begin{align*}
 \Pr(\mathbf{z}) &= \Pr(z_T, z_{T-1}, z_{T-2}, \ldots, z_1) \color{white}{\Pr(z_{T-1}, z_{T-2},\ldots, z_1) \Pr(z_{T-2}, \ldots, z_1)}\\
@@ -394,11 +395,11 @@ $$
 
 ???
 
-+ We're gonna work backward, starting from the last sampling occasion. 
-+ Now the likelihood can be written as the product of the probability of zT ie you're alive or not on the last occasion given your past history, that is the states at previous occasions, times the prob of your past history, y definition of cond prob. 
++ We're gonna work backward, starting from the last sampling occasion.
++ Now the likelihood can be written as the product of the probability of zT ie you're alive or not on the last occasion given your past history, that is the states at previous occasions, times the prob of your past history, y definition of cond prob.
 
 ---
-# Likelihood 
+# Likelihood
 
 \begin{align*}
 \Pr(\mathbf{z}) &= \Pr(z_T, z_{T-1}, z_{T-2}, \ldots, z_1) \color{white}{\Pr(z_{T-1}, z_{T-2},\ldots, z_1) \Pr(z_{T-2}, \ldots, z_1)}\\
@@ -408,10 +409,10 @@ $$
 
 ???
 
-+ Then because we have a Markov model, we're memory less, that is prob of next state, here zT, depends only on the current state, that is zT-1, and not the previous states. 
++ Then because we have a Markov model, we're memory less, that is prob of next state, here zT, depends only on the current state, that is zT-1, and not the previous states.
 
 ---
-# Likelihood 
+# Likelihood
 
 \begin{align*}
 \Pr(\mathbf{z}) &= \Pr(z_T, z_{T-1}, z_{T-2}, \ldots, z_1) \color{white}{\Pr(z_{T-1}, z_{T-2},\ldots, z_1) \Pr(z_{T-2}, \ldots, z_1)}\\
@@ -422,11 +423,11 @@ $$
 
 ???
 
-+ You can apply the same reasoning to T-1. 
++ You can apply the same reasoning to T-1.
 + First conditional prob.
 
 ---
-# Likelihood 
+# Likelihood
 
 \begin{align*}
 \Pr(\mathbf{z}) &= \Pr(z_T, z_{T-1}, z_{T-2}, \ldots, z_1) \color{white}{\Pr(z_{T-1}, z_{T-2},\ldots, z_1) \Pr(z_{T-2}, \ldots, z_1)}\\
@@ -441,7 +442,7 @@ $$
 + Then markovian property.
 
 ---
-# Likelihood 
+# Likelihood
 
 \begin{align*}
 \Pr(\mathbf{z}) &= \Pr(z_T, z_{T-1}, z_{T-2}, \ldots, z_1) \color{white}{\Pr(z_{T-1}, z_{T-2},\ldots, z_1) \Pr(z_{T-2}, \ldots, z_1)}\\
@@ -457,7 +458,7 @@ $$
 + And so on.
 
 ---
-# Likelihood 
+# Likelihood
 
 \begin{align*}
 \Pr(\mathbf{z}) &= \Pr(z_T, z_{T-1}, z_{T-2}, \ldots, z_1) \color{white}{\Pr(z_{T-1}, z_{T-2},\ldots, z_1) \Pr(z_{T-2}, \ldots, z_1)}\\
@@ -471,11 +472,11 @@ $$
 
 ???
 
-+ You end up with this expression for the likelihood. 
++ You end up with this expression for the likelihood.
 
 
 ---
-# Likelihood 
+# Likelihood
 
 \begin{align*}
 \Pr(\mathbf{z}) &= \Pr(z_T, z_{T-1}, z_{T-2}, \ldots, z_1) \color{white}{\Pr(z_{T-1}, z_{T-2},\ldots, z_1) \Pr(z_{T-2}, \ldots, z_1)}\\
@@ -490,11 +491,11 @@ $$
 
 ???
 
-+ A product of cond probabilities. And the prob of initial states Pr(z1). 
++ A product of cond probabilities. And the prob of initial states Pr(z1).
 
 
 ---
-# Likelihood 
+# Likelihood
 
 \begin{align*}
 \Pr(\mathbf{z}) &= \Pr(z_T, z_{T-1}, z_{T-2}, \ldots, z_1) \color{white}{\Pr(z_{T-1}, z_{T-2},\ldots, z_1) \Pr(z_{T-2}, \ldots, z_1)}\\
@@ -510,8 +511,8 @@ $$
 
 ???
 
-+ We recognize the gammas we defined earlier. 
-+ The transition probabilities. 
++ We recognize the gammas we defined earlier.
++ The transition probabilities.
 
 
 <!-- --- -->
@@ -526,12 +527,12 @@ $$
 ---
 # Example
 
-+ Let's assume an animal is alive, alive then dies. 
++ Let's assume an animal is alive, alive then dies.
 
 ???
 
-+ I realise these calculations are a bit difficult to follow. 
-+ Let's take an example. 
++ I realise these calculations are a bit difficult to follow.
++ Let's take an example.
 
 --
 
@@ -540,7 +541,7 @@ $$
 ???
 
 + We have $\mathbf{z} = (1, 1, 2)$. What is the contribution of this animal to the likelihood?
-+ Let's apply the formula we have just derived. 
++ Let's apply the formula we have just derived.
 
 --
 
@@ -552,21 +553,21 @@ $$
 ???
 
 + The prob of having the sequence alive, alive and dead is
-+ The prob of being alive first, the to stay alive, then to die. 
-+ The prob of being alive at first occasion being 1, we have that the contribution of this individual to the likelihood is phi times 1 - phi. 
++ The prob of being alive first, the to stay alive, then to die.
++ The prob of being alive at first occasion being 1, we have that the contribution of this individual to the likelihood is phi times 1 - phi.
 
 --
 
-+ Remember: 
++ Remember:
 
 \begin{align*}
-\mathbf{\Gamma} = 
-\left(\begin{array}{cc} 
-\gamma_{1,1} & \gamma_{1,2}\\ 
+\mathbf{\Gamma} =
+\left(\begin{array}{cc}
+\gamma_{1,1} & \gamma_{1,2}\\
 \gamma_{2,1} & \gamma_{2,2}
 \end{array}\right) =
-\left(\begin{array}{cc} 
-\phi & 1 - \phi\\ 
+\left(\begin{array}{cc}
+\phi & 1 - \phi\\
 0 & 1
 \end{array}\right)
 \end{align*}
@@ -578,16 +579,16 @@ $$
 \begin{align*}
    z_1 &\sim \text{Multinomial}(1, \delta) &\text{[likelihood, }t = 1 \text{]}\\
    \color{white}{z_t | z_{t-1}} & \color{white}{\sim} \color{white}{\text{Multinomial}(1, \gamma_{z_{t-1},z_{t}})} & \color{white}{\text{[likelihood, }t > 1 \text{]}}\\
-  \color{white}{\phi} & \color{white}{\sim} \color{white}{\text{Beta}(1, 1)} & \color{white}{\text{[prior for }\phi \text{]}} \\ 
+  \color{white}{\phi} & \color{white}{\sim} \color{white}{\text{Beta}(1, 1)} & \color{white}{\text{[prior for }\phi \text{]}} \\
 \end{align*}
 
 ???
 
-+ OK let's wrap it up. 
-+ Our model so far is that one. 
++ OK let's wrap it up.
++ Our model so far is that one.
 
-+ Initial state is multinomial with one trial, and probability delta. 
-+ That is you have a dice with two faces, a coin, and you have some prob to be alive, and 1 - that prob to be dead. + Of course, it you want your Markov chain to start, you'd better say it's alive so that delta is just (1,0). 
++ Initial state is multinomial with one trial, and probability delta.
++ That is you have a dice with two faces, a coin, and you have some prob to be alive, and 1 - that prob to be dead. + Of course, it you want your Markov chain to start, you'd better say it's alive so that delta is just (1,0).
 
 ---
 # Our model
@@ -595,7 +596,7 @@ $$
 \begin{align*}
    z_1 &\sim \text{Multinomial}(1, \delta) &\text{[likelihood, }t = 1 \text{]}\\
    \color{white}{z_t | z_{t-1}} & \color{white}{\sim} \color{white}{\text{Multinomial}(1, \gamma_{z_{t-1},z_{t}})} & \color{white}{\text{[likelihood, }t > 1 \text{]}}\\
-  \phi &\sim \text{Beta}(1, 1) &\text{[prior for }\phi \text{]} \\ 
+  \phi &\sim \text{Beta}(1, 1) &\text{[prior for }\phi \text{]} \\
 \end{align*}
 
 ???
@@ -609,14 +610,14 @@ $$
 \begin{align*}
    z_1 &\sim \text{Multinomial}(1, \delta) &\text{[likelihood, }t = 1 \text{]}\\
    z_t | z_{t-1} &\sim \text{Multinomial}(1, \gamma_{z_{t-1},z_{t}}) &\text{[likelihood, }t > 1 \text{]}\\
-  \phi &\sim \text{Beta}(1, 1) &\text{[prior for }\phi \text{]} \\ 
+  \phi &\sim \text{Beta}(1, 1) &\text{[prior for }\phi \text{]} \\
 \end{align*}
 
 
 ???
 
 + Now the main part is the dynamic of the states.
-+ Our state at t depends only on your state at t-1, and it is a multinomial random variable, with one trial. 
++ Our state at t depends only on your state at t-1, and it is a multinomial random variable, with one trial.
 + And the probabilities are given by the rows of the transition matrix.
 
 
@@ -627,13 +628,13 @@ $$
 \begin{align*}
    z_1 &\sim \text{Multinomial}(1, \delta) &\text{[likelihood, }t = 1 \text{]}\\
    z_t | z_{t-1} &\sim \text{Multinomial}(1, \gamma_{z_{t-1},z_{t}}) &\text{[likelihood, }t > 1 \text{]}\\
-  \phi &\sim \text{Beta}(1, 1) &\text{[prior for }\phi \text{]} \\ 
+  \phi &\sim \text{Beta}(1, 1) &\text{[prior for }\phi \text{]} \\
 \end{align*}
 
 \begin{align*}
-\mathbf{\Gamma} = 
-\left(\begin{array}{cc} 
-\color{blue}{\phi} & \color{blue}{1 - \phi}\\ 
+\mathbf{\Gamma} =
+\left(\begin{array}{cc}
+\color{blue}{\phi} & \color{blue}{1 - \phi}\\
 0 & 1
 \end{array}\right)
 \end{align*}
@@ -643,7 +644,7 @@ $$\color{blue}{\gamma_{z_{t-1} = 1,z_{t}} = (\phi, 1-\phi)}$$
 
 ???
 
-+ If z at t-1 is alive, it is the first row, that is phi and 1-phi. 
++ If z at t-1 is alive, it is the first row, that is phi and 1-phi.
 
 ---
 # Our model
@@ -651,13 +652,13 @@ $$\color{blue}{\gamma_{z_{t-1} = 1,z_{t}} = (\phi, 1-\phi)}$$
 \begin{align*}
    z_1 &\sim \text{Multinomial}(1, \delta) &\text{[likelihood, }t = 1 \text{]}\\
    z_t | z_{t-1} &\sim \text{Multinomial}(1, \gamma_{z_{t-1},z_{t}}) &\text{[likelihood, }t > 1 \text{]}\\
-  \phi &\sim \text{Beta}(1, 1) &\text{[prior for }\phi \text{]} \\ 
+  \phi &\sim \text{Beta}(1, 1) &\text{[prior for }\phi \text{]} \\
 \end{align*}
 
 \begin{align*}
-\mathbf{\Gamma} = 
-\left(\begin{array}{cc} 
-\phi & 1 - \phi\\ 
+\mathbf{\Gamma} =
+\left(\begin{array}{cc}
+\phi & 1 - \phi\\
 \color{blue}{0} & \color{blue}{1}
 \end{array}\right)
 \end{align*}
@@ -666,21 +667,21 @@ $$\color{blue}{\gamma_{z_{t-1} = 2,z_{t}} = (0, 1)}$$
 
 ???
 
-+ Otherwise, if z at t-1 is dead that is 2, then it is the second row of gamma, 0 and 1. 
-+ If dead you remain dead. 
++ Otherwise, if z at t-1 is dead that is 2, then it is the second row of gamma, 0 and 1.
++ If dead you remain dead.
 
 ---
 # Nimble implementation
 
 + In Nimble, we will use the categorical distribution `dcat()`.
 
-+ The categorical distribution is a multinomial distribution with a single draw. 
++ The categorical distribution is a multinomial distribution with a single draw.
 
 ???
 
 + In Nimble, we will use the categorical distribution `dcat()`.
 
-+ The categorical distribution is a multinomial distribution with a single draw. 
++ The categorical distribution is a multinomial distribution with a single draw.
 
 
 --
@@ -705,7 +706,7 @@ nimble::rcat(n = 20, prob = c(0.1, 0.1, 0.4, 0.2, 0.2))
 
 https://en.wikipedia.org/wiki/Categorical_distribution
 
-The categorical distribution is the generalization of the Bernoulli distribution for a categorical random variable, i.e. for a discrete variable with more than two possible outcomes, such as the roll of a dice. On the other hand, the categorical distribution is a special case of the multinomial distribution, in that it gives the probabilities of potential outcomes of a single drawing rather than multiple drawings. 
+The categorical distribution is the generalization of the Bernoulli distribution for a categorical random variable, i.e. for a discrete variable with more than two possible outcomes, such as the roll of a dice. On the other hand, the categorical distribution is a special case of the multinomial distribution, in that it gives the probabilities of potential outcomes of a single drawing rather than multiple drawings.
 
 ---
 ### Nimble code
@@ -826,10 +827,10 @@ markov.survival <- nimbleCode({
   delta[2] <- 0          # Pr(dead t = 1) = 0
   # likelihood
   for (i in 1:N){ #<<
-    z[i,1] ~ dcat(delta[1:2]) 
+    z[i,1] ~ dcat(delta[1:2])
     for (j in 2:T){
       z[i,j] ~ dcat(gamma[z[i,j-1], 1:2])
-    } 
+    }
   } #<<
   })
 ```
@@ -917,13 +918,13 @@ markov.survival <- nimbleCode({
 
 + Vector $\delta$ is used as a placeholder for more complex models to come in Class 7.
 
-+ Here, you could write `z[i,1] <- 1`. 
++ Here, you could write `z[i,1] <- 1`.
 
 
 ---
 ### Nimble awesomness
 
-You should be able to define vectors and matrices like you do in `R`.  
+You should be able to define vectors and matrices like you do in `R`.
 
 .small-font[
 ```{r, eval = FALSE}
@@ -944,9 +945,9 @@ markov.survival <- nimbleCode({
 ---
 ### Converting to Nimble from Jags, OpenBUGS or WinBUGS
 
-+ Main difference is that Nimble does not guess. 
++ Main difference is that Nimble does not guess.
 
-+ We need to specify dimensions of vectors and matrices. 
++ We need to specify dimensions of vectors and matrices.
 
 + You cannot write `x[]` or `x[i,]`. Just provide index ranges `x[1:n]` or `x[i,1:m]`.
 
@@ -990,24 +991,24 @@ n.chains <- 2
 ---
 ## Run Nimble
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
-mcmc.output <- nimbleMCMC(code = markov.survival, 
+mcmc.output <- nimbleMCMC(code = markov.survival,
                           constants = my.constants,
-                          data = my.data,              
+                          data = my.data,
                           inits = initial.values,
                           monitors = parameters.to.save,
-                          niter = n.iter, 
-                          nburnin = n.burnin, 
+                          niter = n.iter,
+                          nburnin = n.burnin,
                           nchains = n.chains)
 ```
 
 ```{r, message=FALSE, warning=FALSE, eval=TRUE, echo = FALSE}
-mcmc.output <- nimbleMCMC(code = markov.survival, 
+mcmc.output <- nimbleMCMC(code = markov.survival,
                           constants = my.constants,
-                          data = my.data,              
+                          data = my.data,
                           inits = initial.values,
                           monitors = parameters.to.save,
-                          niter = n.iter, 
-                          nburnin = n.burnin, 
+                          niter = n.iter,
+                          nburnin = n.burnin,
                           nchains = n.chains,
                           progressBar = FALSE)
 ```
@@ -1022,11 +1023,11 @@ MCMCsummary(mcmc.output, round = 2)
 
 --
 
-+ Posterior mean and median are close to $0.8$. 
++ Posterior mean and median are close to $0.8$.
 
 --
 
-+ Cool! The data was simulated, with (true) survival $\phi = 0.8$. 
++ Cool! The data was simulated, with (true) survival $\phi = 0.8$.
 
 
 ---
@@ -1042,7 +1043,7 @@ background-color: #234f66
 
 class: middle, center
 
-## Unfortunately, this is the data we wish we had. 
+## Unfortunately, this is the data we wish we had.
 
 ---
 # In real life
@@ -1053,15 +1054,15 @@ class: middle, center
 
 --
 
-+ Animals are captured, marked or identified then released alive. 
++ Animals are captured, marked or identified then released alive.
 
 --
 
-+ Then, these animals may be detected again, or go undetected <span>&#8212;</span> **capture-recapture** 
++ Then, these animals may be detected again, or go undetected <span>&#8212;</span> **capture-recapture**
 
 --
 
-+ Whenever animals go undetected, it might be that they were alive but missed, or because they were dead and therefore could not be detected <span>&#8212;</span> **imperfect detection**. 
++ Whenever animals go undetected, it might be that they were alive but missed, or because they were dead and therefore could not be detected <span>&#8212;</span> **imperfect detection**.
 
 
 ---
@@ -1078,17 +1079,17 @@ background-color: #13080C
 + Animals cannot be monitored exhaustively, like humans in a medical trial.
 
 
-+ Animals are captured, marked or identified then released alive. 
++ Animals are captured, marked or identified then released alive.
 
 
-+ Then, these animals may be detected again, or go undetected <span>&#8212;</span> **capture-recapture** 
++ Then, these animals may be detected again, or go undetected <span>&#8212;</span> **capture-recapture**
 
 
-+ Whenever animals go undetected, it might be that they were alive but missed, or because they were dead and therefore could not be detected <span>&#8212;</span> **imperfect detection**. 
++ Whenever animals go undetected, it might be that they were alive but missed, or because they were dead and therefore could not be detected <span>&#8212;</span> **imperfect detection**.
 
 --
 
-+ The Markov process for survival is only partially observed <span>&#8212;</span> **hidden Markov models**.  
++ The Markov process for survival is only partially observed <span>&#8212;</span> **hidden Markov models**.
 
 
 ---
@@ -1101,8 +1102,8 @@ background-size: cover
 
 .center.nogap[
 ```{r echo = FALSE}
-z %>% 
-  as_tibble() %>% 
+z %>%
+  as_tibble() %>%
   add_column(id = 1:nind, .before = "winter 1") %>%
   kableExtra::kable() %>%
   kableExtra::scroll_box(width = "100%", height = "300px")
@@ -1111,7 +1112,7 @@ z %>%
 
 --
 
-+ Unfortunately, we have only partial access to $z$. 
++ Unfortunately, we have only partial access to $z$.
 
 --
 
@@ -1119,21 +1120,21 @@ z %>%
 
 --
 
-+ How are $z$ and $y$ connected?  
++ How are $z$ and $y$ connected?
 
 ---
 ## Dead animals go undetected
 
 --
 
-+ When an animal is dead i.e. $z = 2$, it cannot be detected, therefore $y = 0$. 
++ When an animal is dead i.e. $z = 2$, it cannot be detected, therefore $y = 0$.
 
 --
 
 .center.nogap[
 ```{r echo = FALSE}
-z %>% 
-  as_tibble() %>% 
+z %>%
+  as_tibble() %>%
   replace(. == 2, 0) %>%
   add_column(id = 1:nind, .before = "winter 1") %>%
   kableExtra::kable() %>%
@@ -1144,7 +1145,7 @@ z %>%
 ---
 ## Alive animals may be detected or not
 
-+ If animal is alive $z = 1$, it is detected $y = 1$ w/ prob $p$ or not $y = 0$ w/ prob $1-p$. 
++ If animal is alive $z = 1$, it is detected $y = 1$ w/ prob $p$ or not $y = 0$ w/ prob $1-p$.
 
 + Before **first** detection, we know nothing, and we proceed conditional on it.
 
@@ -1171,7 +1172,7 @@ y %>%
 ???
 
 + Compare with previous table
-+ Some 1s have become 0s. 
++ Some 1s have become 0s.
 
 --
 
@@ -1191,20 +1192,20 @@ y %>%
 
 --
 
-+ In rows: the states alive $z = 1$ and dead $z = 2$.  
++ In rows: the states alive $z = 1$ and dead $z = 2$.
 
 --
 
-+ In columns: the observations non-detected $y = 1$ and detected $y = 2$ (previously coded 0 and 1 respectively). 
++ In columns: the observations non-detected $y = 1$ and detected $y = 2$ (previously coded 0 and 1 respectively).
 
 \begin{align*}
-\mathbf{\Omega} = 
-\left(\begin{array}{cc} 
-\omega_{1,1} & \omega_{1,2}\\ 
+\mathbf{\Omega} =
+\left(\begin{array}{cc}
+\omega_{1,1} & \omega_{1,2}\\
 \omega_{2,1} & \omega_{2,2}
 \end{array}\right) =
-\left(\begin{array}{cc} 
-1 - p & p\\ 
+\left(\begin{array}{cc}
+1 - p & p\\
 1 & 0
 \end{array}\right)
 \end{align*}
@@ -1216,13 +1217,13 @@ Observation matrix:
 $$
 \begin{matrix}
 & \\
-\mathbf{\Omega} = 
+\mathbf{\Omega} =
     \left ( \vphantom{ \begin{matrix} 12 \\ 12 \end{matrix} } \right .
 \end{matrix}
 \hspace{-1.2em}
 \begin{matrix}
     y_t=1 & y_t=2 \\ \hdashline
-1 - p & p\\ 
+1 - p & p\\
 1 & 0\\
 \end{matrix}
 \hspace{-0.2em}
@@ -1245,7 +1246,7 @@ $$
 <br>
 
 .center.nogap[
-```{r, engine = 'tikz', echo = FALSE, fig.width = 7.5, fig.asp = 0.618, dev = "svg"}
+```{r, engine = 'tikz', echo = FALSE, fig.width = 7.5, fig.asp = 0.618}
 \usetikzlibrary{arrows, fit, positioning, automata}
 \begin{tikzpicture}[node distance = 2cm]
 \tikzset{state/.style = {circle, draw, minimum size = 30pt, scale = 3, line width=1pt}}
@@ -1276,7 +1277,7 @@ $$
 # Hidden Markov model
 
 .center.nogap[
-```{r, engine = 'tikz', echo = FALSE, fig.width = 7.5, fig.asp = 0.618, dev = "svg"}
+```{r, engine = 'tikz', echo = FALSE, fig.width = 7.5, fig.asp = 0.618}
 \usetikzlibrary{arrows, fit, positioning, automata}
 \begin{tikzpicture}[node distance = 2cm]
 \tikzset{state/.style = {circle, draw, minimum size = 30pt, scale = 3, line width=1pt}}
@@ -1313,16 +1314,16 @@ $$
 
 ???
 
-+ A hidden Markov model is just two time series. 
++ A hidden Markov model is just two time series.
 + One for the states with a Markovian property.
-+ The other of observations generated from the states. 
-+ Run in parallel. 
++ The other of observations generated from the states.
++ Run in parallel.
 
 ---
 # Hidden Markov model for survival
 
 .center.nogap[
-```{r, engine = 'tikz', echo = FALSE, fig.width = 7.5, fig.asp = 0.618, dev = "svg"}
+```{r, engine = 'tikz', echo = FALSE, fig.width = 7.5, fig.asp = 0.618}
 \usetikzlibrary{arrows, fit, positioning, automata}
 \begin{tikzpicture}[node distance = 2cm]
 \tikzset{state/.style = {circle, draw, minimum size = 30pt, scale = 3, line width=1pt}}
@@ -1359,15 +1360,15 @@ $$
 
 ???
 
-+ Now add the states alive and dead, 1 and 2s. 
-+ The observations, non-detected and detected, 1 and 2s. 
++ Now add the states alive and dead, 1 and 2s.
++ The observations, non-detected and detected, 1 and 2s.
 + And the parameters, phi for transition from 1 to 1.
-+ And p for prob of y being 2 detected given z is 1 alive. 
++ And p for prob of y being 2 detected given z is 1 alive.
 
 ---
-# HMM likelihood 
+# HMM likelihood
 
-+ Using the formula of total probability, then the likelihood of a Markov chain: 
++ Using the formula of total probability, then the likelihood of a Markov chain:
 
 \begin{align*}
 \Pr(\mathbf{y}) &= \Pr(y_1, y_{2}, \ldots, y_T)\\
@@ -1378,13 +1379,13 @@ $$
 ???
 
 + What is the likelihood of a HMM.
-+ The thing here is that we don't know the states. 
-+ So we have to go through all possibilities, and sum over the possible states. 
-+ Hence these sums here. 
-+ Then this term is the likelihood of a Markov chain, we saw that before. 
++ The thing here is that we don't know the states.
++ So we have to go through all possibilities, and sum over the possible states.
++ Hence these sums here.
++ Then this term is the likelihood of a Markov chain, we saw that before.
 + And this component are the elements of the observation matrix.
-+ The likelihood has a matrix formulation that can be useful. 
-+ It is delta, initial states, then observation, then transitions, and so on. There is a vector of ones at the end to get the sum all the terms.  
++ The likelihood has a matrix formulation that can be useful.
++ It is delta, initial states, then observation, then transitions, and so on. There is a vector of ones at the end to get the sum all the terms.
 
 --
 
@@ -1395,9 +1396,9 @@ $$
 
 
 ---
-# Example 
+# Example
 
-+ Let assume an animal is detected, then missed. 
++ Let assume an animal is detected, then missed.
 
 --
 
@@ -1411,9 +1412,9 @@ $$
 
 
 ---
-# Example 
+# Example
 
-+ Let assume an animal is detected, then missed. 
++ Let assume an animal is detected, then missed.
 
 + We have $\mathbf{y} = (2, 1)$. What is the contribution of this animal to the likelihood?
 
@@ -1423,9 +1424,9 @@ $$
 \end{align*}
 
 ---
-# Example 
+# Example
 
-+ Let assume an animal is detected, then missed. 
++ Let assume an animal is detected, then missed.
 
 + We have $\mathbf{y} = (2, 1)$. What is the contribution of this animal to the likelihood?
 
@@ -1435,13 +1436,13 @@ $$
 &= w_{z_1 = 1, y_1 = 2} w_{z_2 = 1, y_2 = 1}\delta_1 \gamma_{z_1 = 1, z_2 = 1} + w_{z_1 = 1, y_1 = 2} w_{z_2 = 2, y_2 = 1} \delta_1 \gamma_{z_1 = 1, z_2 = 2}
 \end{align*}
 
-Note: $\Pr(z_1 = 1) = \delta_1 = 1$ and $\Pr(z_1 = 2) = 0$. 
+Note: $\Pr(z_1 = 1) = \delta_1 = 1$ and $\Pr(z_1 = 2) = 0$.
 
 
 ---
-# Example 
+# Example
 
-+ Let assume an animal is detected, then missed. 
++ Let assume an animal is detected, then missed.
 
 + We have $\mathbf{y} = (2, 1)$. What is the contribution of this animal to the likelihood?
 
@@ -1452,34 +1453,34 @@ Note: $\Pr(z_1 = 1) = \delta_1 = 1$ and $\Pr(z_1 = 2) = 0$.
 &= (1 - p) \phi + (1-\phi)
 \end{align*}
 
-Note: $w_{z_1 = 1, y_1 = 2} = \Pr(y_1 = 2 | z_1 = 1) = 1$ because we condition on first capture. 
+Note: $w_{z_1 = 1, y_1 = 2} = \Pr(y_1 = 2 | z_1 = 1) = 1$ because we condition on first capture.
 
 ---
 ### Estimating the latent states $z$ or not?
 
 ???
 
-+ Next question is, shall we estimate the latent states or not? 
++ Next question is, shall we estimate the latent states or not?
 
 --
 
-+ In previous example, we got rid of the states, so that likelihood was a function of $\phi$ and $p$ only. This is the function we would maximize in a Frequentist approach. 
++ In previous example, we got rid of the states, so that likelihood was a function of $\phi$ and $p$ only. This is the function we would maximize in a Frequentist approach.
 
 --
 
-+ The Bayesian approach with MCMC methods allows treating the latent states as if they were parameters, and to be estimated as such. 
++ The Bayesian approach with MCMC methods allows treating the latent states as if they were parameters, and to be estimated as such.
 
 --
 
-+ Infering the latent states $z$ can be useful to estimate prevalence, e.g. in animal epidemiology with [prevalence of a disease](https://veterinaryresearch.biomedcentral.com/articles/10.1186/1297-9716-45-39), in evolutionary ecology with [sex ratio](https://onlinelibrary.wiley.com/doi/abs/10.1002/cjs.5550360105) or in conservation biology with [prevalence of hybrids](https://onlinelibrary.wiley.com/doi/full/10.1002/ece3.4819?af=R).  
++ Infering the latent states $z$ can be useful to estimate prevalence, e.g. in animal epidemiology with [prevalence of a disease](https://veterinaryresearch.biomedcentral.com/articles/10.1186/1297-9716-45-39), in evolutionary ecology with [sex ratio](https://onlinelibrary.wiley.com/doi/abs/10.1002/cjs.5550360105) or in conservation biology with [prevalence of hybrids](https://onlinelibrary.wiley.com/doi/full/10.1002/ece3.4819?af=R).
 
 --
 
-+ Estimating the latent states is costly though, and if not required, marginalisation may speed up computations. Actually, you can estimate the states afterwards (Viterbi). 
++ Estimating the latent states is costly though, and if not required, marginalisation may speed up computations. Actually, you can estimate the states afterwards (Viterbi).
 
 --
 
-+ More about so-called marginalisation in [Yackulic et al. (2020)](https://esajournals.onlinelibrary.wiley.com/doi/abs/10.1002/eap.2112). 
++ More about so-called marginalisation in [Yackulic et al. (2020)](https://esajournals.onlinelibrary.wiley.com/doi/abs/10.1002/eap.2112).
 
 --
 
@@ -1492,14 +1493,14 @@ Note: $w_{z_1 = 1, y_1 = 2} = \Pr(y_1 = 2 | z_1 = 1) = 1$ because we condition o
    z_{\text{first}} &\sim \text{Multinomial}(1, \delta) &\text{[likelihood]}\\
    z_t | z_{t-1} &\sim \text{Multinomial}(1, \gamma_{z_{t-1},z_{t}}) &\text{[likelihood]}\\
    y_t | z_{t} &\sim \text{Multinomial}(1, \omega_{z_{t}}) &\text{[likelihood]}\\
-  \phi &\sim \text{Beta}(1, 1) &\text{[prior for }\phi \text{]} \\ 
-  p &\sim \text{Beta}(1, 1) &\text{[prior for }p \text{]} \\ 
+  \phi &\sim \text{Beta}(1, 1) &\text{[prior for }\phi \text{]} \\
+  p &\sim \text{Beta}(1, 1) &\text{[prior for }p \text{]} \\
 \end{align*}
 
 ???
 
-+ Now our model has an observation layer for the ys, conditional on the z. 
-+ And we need a prior for the detection probability. 
++ Now our model has an observation layer for the ys, conditional on the z.
++ And we need a prior for the detection probability.
 
 ---
 
@@ -1509,7 +1510,7 @@ Note: $w_{z_1 = 1, y_1 = 2} = \Pr(y_1 = 2 | z_1 = 1) = 1$ because we condition o
 
 ???
 
-+ How to implement this model in Nimble? 
++ How to implement this model in Nimble?
 
 ---
 ## Priors
@@ -1599,7 +1600,7 @@ my.constants
 
 --
 
-+ To use the categorical distribution, we need to code 1, 2, etc. Value 0 is not accepted. 
++ To use the categorical distribution, we need to code 1, 2, etc. Value 0 is not accepted.
 
 --
 
@@ -1642,24 +1643,24 @@ n.chains <- 2
 ---
 ## Run Nimble
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
-mcmc.output <- nimbleMCMC(code = hmm.survival, 
+mcmc.output <- nimbleMCMC(code = hmm.survival,
                           constants = my.constants,
-                          data = my.data,              
+                          data = my.data,
                           inits = initial.values,
                           monitors = parameters.to.save,
-                          niter = n.iter, 
-                          nburnin = n.burnin, 
+                          niter = n.iter,
+                          nburnin = n.burnin,
                           nchains = n.chains)
 ```
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE, cache = TRUE}
-mcmc.output <- nimbleMCMC(code = hmm.survival, 
+mcmc.output <- nimbleMCMC(code = hmm.survival,
                           constants = my.constants,
-                          data = my.data,              
+                          data = my.data,
                           inits = initial.values,
                           monitors = parameters.to.save,
-                          niter = n.iter, 
-                          nburnin = n.burnin, 
+                          niter = n.iter,
+                          nburnin = n.burnin,
                           nchains = n.chains,
                           progressBar = FALSE)
 ```
@@ -1678,9 +1679,9 @@ The data is simulated, with true survival $\phi = 0.8$ and detection $p = 0.6$.
 ---
 ## Further reading
 
-+ Zucchini, MacDonald and Langrock (2016) [Hidden Markov Models for Time Series: An Introduction Using R (2nd ed)](https://www.routledge.com/Hidden-Markov-Models-for-Time-Series-An-Introduction-Using-R-Second-Edition/Zucchini-MacDonald-Langrock/p/book/9781482253832). Chapman and Hall/CRC. 
++ Zucchini, MacDonald and Langrock (2016) [Hidden Markov Models for Time Series: An Introduction Using R (2nd ed)](https://www.routledge.com/Hidden-Markov-Models-for-Time-Series-An-Introduction-Using-R-Second-Edition/Zucchini-MacDonald-Langrock/p/book/9781482253832). Chapman and Hall/CRC.
 
-+ McClintock, B.T., Langrock, R., Gimenez, O., Cam, E., Borchers, D.L., Glennie, R. and Patterson, T.A. (2020), [Uncovering ecological state dynamics with hidden Markov models](https://onlinelibrary.wiley.com/doi/full/10.1111/ele.13610). Ecology Letters, 23: 1878-1903. 
++ McClintock, B.T., Langrock, R., Gimenez, O., Cam, E., Borchers, D.L., Glennie, R. and Patterson, T.A. (2020), [Uncovering ecological state dynamics with hidden Markov models](https://onlinelibrary.wiley.com/doi/full/10.1111/ele.13610). Ecology Letters, 23: 1878-1903.
 
 +  Yackulic, C. B. Dodrill, M., Dzul, M., Sanderlin, J. S., and Reid, J. A.. (2020). [A need for speed in Bayesian population models: a practical guide to marginalizing and recovering discrete latent states](https://esajournals.onlinelibrary.wiley.com/doi/abs/10.1002/eap.2112). Ecological Applications 30:e02112.
 

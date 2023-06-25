@@ -17,7 +17,7 @@ class: center, middle, title-slide
 # Dead or alive: Survival estimation
 ]
 .date[
-### last updated: 2023-06-24
+### last updated: 2023-06-25
 ]
 
 ---
@@ -60,7 +60,7 @@ class: center, middle, title-slide
 --
 
 .center.nogap[
-![](5_survival_files/figure-html/unnamed-chunk-4-1.svg)&lt;!-- --&gt;
+![](5_survival_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
 ]
 
 + For states (in gray), `\(z = 1\)` is alive, `\(z = 2\)` is dead.
@@ -73,7 +73,7 @@ class: center, middle, title-slide
 --
 
 .center.nogap[
-![](5_survival_files/figure-html/unnamed-chunk-5-1.svg)&lt;!-- --&gt;
+![](5_survival_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
 ]
 
 + Survival probability is `\(\phi_t = \Pr(z_{t+1} = 1 | z_t = 1)\)`.
@@ -7612,15 +7612,6 @@ class: middle, center
 Unreasonable prior `\(\beta \sim N(0, 1000^2)\)`
 
 .center[
-
-```
-Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-ℹ Please use `linewidth` instead.
-This warning is displayed once every 8 hours.
-Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-generated.
-```
-
 ![](5_survival_files/figure-html/unnamed-chunk-44-1.svg)&lt;!-- --&gt;
 ]
 ]
@@ -7632,6 +7623,15 @@ generated.
 Reasonable prior `\(\beta \sim N(2, 0.5^2)\)`
 
 .center[
+
+```
+Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+generated.
+```
+
 ![](5_survival_files/figure-html/unnamed-chunk-45-1.svg)&lt;!-- --&gt;
 ]
 ]
