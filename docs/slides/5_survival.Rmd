@@ -65,7 +65,7 @@ knitr::include_graphics("img/king.png")
 --
 
 .center.nogap[
-```{r, engine = 'tikz', echo = FALSE, fig.width = 7.5, fig.asp = 0.618, dev = "svg"}
+```{r, engine = 'tikz', echo = FALSE, fig.width = 7.5, fig.asp = 0.618}
 \usetikzlibrary{arrows, fit, positioning, automata}
 \begin{tikzpicture}[node distance = 2cm]
 \tikzset{state/.style = {circle, draw, minimum size = 30pt, scale = 3, line width=1pt}}
@@ -106,7 +106,7 @@ knitr::include_graphics("img/king.png")
 --
 
 .center.nogap[
-```{r, engine = 'tikz', echo = FALSE, fig.width = 7.5, fig.asp = 0.618, dev = "svg"}
+```{r, engine = 'tikz', echo = FALSE, fig.width = 7.5, fig.asp = 0.618}
 \usetikzlibrary{arrows, fit, positioning, automata}
 \begin{tikzpicture}[node distance = 2cm]
 \tikzset{state/.style = {circle, draw, minimum size = 30pt, scale = 3, line width=1pt}}
@@ -1206,7 +1206,7 @@ df <- rnorm(1000, 0, 1000)
 df %>%
   as_tibble() %>%
   ggplot(aes(x = value)) + 
-  geom_density(size = 2) + 
+  geom_density(linetype = 2) + 
   labs(x = "Height (m)") +
   theme_light(base_size = 20)
 ```
@@ -1309,7 +1309,7 @@ mytable <- df %>% slice(c(20, 27, 38, 44)) %>% round(2)
 ggplot() + 
   geom_line(data = df, 
             aes(x = last_survival, y = max_dev),
-            size = 1.5,
+            linewidth = 1.5,
             color = "gray70") + 
   geom_point(data = df %>% slice(c(20, 27, 38, 44)), 
              aes(x = last_survival, y = max_dev), 
