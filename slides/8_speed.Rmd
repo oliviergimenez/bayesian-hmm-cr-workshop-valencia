@@ -612,16 +612,16 @@ background-color: #234f66
 ]
 
 
----
-## Future directions for NIMBLE
+<!-- --- -->
+<!-- ## Future directions for NIMBLE -->
 
-+ NIMBLE is under active development.  Contributors are welcome, including those who want to get involved but don't know where.
+<!-- + NIMBLE is under active development.  Contributors are welcome, including those who want to get involved but don't know where. -->
 
-+ Faster building of models and algorithms.  Ability to save and re-load compiled work.
+<!-- + Faster building of models and algorithms.  Ability to save and re-load compiled work. -->
 
-+ Automatic differentiation of model calculations, enabling Hamiltonian Monte Carlo, other sampling strategies, and Laplace approximation.
+<!-- + Automatic differentiation of model calculations, enabling Hamiltonian Monte Carlo, other sampling strategies, and Laplace approximation. -->
 
-+ Tools for building packages that use NIMBLE "under the hood".
+<!-- + Tools for building packages that use NIMBLE "under the hood". -->
 
 ---
 ## Further reading

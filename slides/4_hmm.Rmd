@@ -225,10 +225,10 @@ z %>%
 \node [state,fill=lightgray!75] (7) [right = 20mm of 6] {$2$};
 \node [state,fill=lightgray!75] (8) [right = 20mm of 7] {$2$};
 \node [state,fill=lightgray!75] (9) [right = 20mm of 8] {$\cdots$};
-\draw[->,black, line width=0.25mm,-latex] (3) -- node[above=3mm, align=center] {\huge $\varphi$} (4);
-\draw[->,black, line width=0.25mm,-latex] (4) -- node[above=3mm, align=center] {\huge $\varphi$} (5);
-\draw[->,black, line width=0.25mm,-latex] (5) -- node[above=3mm, align=center] {\huge $\varphi$} (6);
-\draw[->,black, line width=0.25mm,-latex] (6) -- node[above=3mm, align=center] {\huge $1 - \varphi$} (7);
+\draw[->,black, line width=0.25mm,-latex] (3) -- node[above=3mm, align=center] {\huge $\phi$} (4);
+\draw[->,black, line width=0.25mm,-latex] (4) -- node[above=3mm, align=center] {\huge $\phi$} (5);
+\draw[->,black, line width=0.25mm,-latex] (5) -- node[above=3mm, align=center] {\huge $\phi$} (6);
+\draw[->,black, line width=0.25mm,-latex] (6) -- node[above=3mm, align=center] {\huge $1 - \phi$} (7);
 \draw[->,black, line width=0.25mm,-latex] (7) -- node[above=3mm, align=center] {\huge 1} (8);
 \draw[->,black, line width=0.25mm,-latex] (8) -- node[above=3mm, align=center] {\huge 1} (9);
 \end{tikzpicture}
@@ -1339,10 +1339,10 @@ $$
 \node [state,fill=white] (14) [above = 20mm of 4] {$1$};
 \node [state,fill=white] (17) [above = 20mm of 7] {$1$};
 \node [state,fill=white] (18) [above = 20mm of 8] {$1$};
-\draw[->,black, line width=0.25mm,-latex] (3) -- node[above=3mm, align=center] {\huge $\varphi$} (4);
-\draw[->,black, line width=0.25mm,-latex] (4) -- node[above=3mm, align=center] {\huge $\varphi$} (5);
-\draw[->,black, line width=0.25mm,-latex] (5) -- node[above=3mm, align=center] {\huge $\varphi$} (6);
-\draw[->,black, line width=0.25mm,-latex] (6) -- node[above=3mm, align=center] {\huge $1 - \varphi$} (7);
+\draw[->,black, line width=0.25mm,-latex] (3) -- node[above=3mm, align=center] {\huge $\phi$} (4);
+\draw[->,black, line width=0.25mm,-latex] (4) -- node[above=3mm, align=center] {\huge $\phi$} (5);
+\draw[->,black, line width=0.25mm,-latex] (5) -- node[above=3mm, align=center] {\huge $\phi$} (6);
+\draw[->,black, line width=0.25mm,-latex] (6) -- node[above=3mm, align=center] {\huge $1 - \phi$} (7);
 \draw[->,black, line width=0.25mm,-latex] (7) -- node[above=3mm, align=center] {\huge $1$} (8);
 \draw[->,black, line width=0.25mm,-latex] (8) -- node[above=3mm, align=center] {\huge $1$} (9);
 \draw[->,black, line width=0.25mm,-latex] (4) -- node[left=3mm, align=center] {\huge $1 - p$} (14);
@@ -1395,65 +1395,65 @@ $$
 \end{align*}
 
 
----
-# Example
+<!-- --- -->
+<!-- # Example -->
 
-+ Let assume an animal is detected, then missed.
+<!-- + Let assume an animal is detected, then missed. -->
 
---
+<!-- -- -->
 
-+ We have $\mathbf{y} = (2, 1)$. What is the contribution of this animal to the likelihood?
+<!-- + We have $\mathbf{y} = (2, 1)$. What is the contribution of this animal to the likelihood? -->
 
---
+<!-- -- -->
 
-\begin{align*}
-\Pr(\mathbf{y} = (2, 1)) &= \sum_{z_1 = 1}^2 \; \sum_{z_2 = 1}^2 w_{z_1, y_1 = 2} w_{z_2, y_2 = 1} \Pr(z_1) \gamma_{z_1, z_2} \color{white}{\Pr(z_{T-1}, z_{T-2},\ldots, z_1, z_1, z_1, z_1)}\\
-\end{align*}
-
-
----
-# Example
-
-+ Let assume an animal is detected, then missed.
-
-+ We have $\mathbf{y} = (2, 1)$. What is the contribution of this animal to the likelihood?
-
-\begin{align*}
-\Pr(\mathbf{y} = (2, 1)) &= \sum_{z_1 = 1}^2 \; \sum_{z_2 = 1}^2 w_{z_1, y_1 = 2} w_{z_2, y_2 = 1} \Pr(z_1) \gamma_{z_1, z_2} \color{white}{\Pr(z_{T-1}, z_{T-2},\ldots, z_1, z_1, z_1, z_1)}\\
-&= \sum_{z_1 = 1}^2 \left( w_{z_1, y_1 = 2} w_{z_2 = 1, y_2 = 1} \Pr(z_1) \gamma_{z_1, z_2 = 1} + w_{z_1, y_1 = 2} w_{z_2 = 2, y_2 = 1} \Pr(z_1) \gamma_{z_1, z_2 = 2} \right) \\
-\end{align*}
-
----
-# Example
-
-+ Let assume an animal is detected, then missed.
-
-+ We have $\mathbf{y} = (2, 1)$. What is the contribution of this animal to the likelihood?
-
-\begin{align*}
-\Pr(\mathbf{y} = (2, 1)) &= \sum_{z_1 = 1}^2 \; \sum_{z_2 = 1}^2 w_{z_1, y_1 = 2} w_{z_2, y_2 = 1} \Pr(z_1) \gamma_{z_1, z_2} \color{white}{\Pr(z_{T-1}, z_{T-2},\ldots, z_1, z_1, z_1, z_1)}\\
-&= \sum_{z_1 = 1}^2 \left( w_{z_1, y_1 = 2} w_{z_2 = 1, y_2 = 1} \Pr(z_1) \gamma_{z_1, z_2 = 1} + w_{z_1, y_1 = 2} w_{z_2 = 2, y_2 = 1} \Pr(z_1) \gamma_{z_1, z_2 = 2} \right) \\
-&= w_{z_1 = 1, y_1 = 2} w_{z_2 = 1, y_2 = 1}\delta_1 \gamma_{z_1 = 1, z_2 = 1} + w_{z_1 = 1, y_1 = 2} w_{z_2 = 2, y_2 = 1} \delta_1 \gamma_{z_1 = 1, z_2 = 2}
-\end{align*}
-
-Note: $\Pr(z_1 = 1) = \delta_1 = 1$ and $\Pr(z_1 = 2) = 0$.
+<!-- \begin{align*} -->
+<!-- \Pr(\mathbf{y} = (2, 1)) &= \sum_{z_1 = 1}^2 \; \sum_{z_2 = 1}^2 w_{z_1, y_1 = 2} w_{z_2, y_2 = 1} \Pr(z_1) \gamma_{z_1, z_2} \color{white}{\Pr(z_{T-1}, z_{T-2},\ldots, z_1, z_1, z_1, z_1)}\\ -->
+<!-- \end{align*} -->
 
 
----
-# Example
+<!-- --- -->
+<!-- # Example -->
 
-+ Let assume an animal is detected, then missed.
+<!-- + Let assume an animal is detected, then missed. -->
 
-+ We have $\mathbf{y} = (2, 1)$. What is the contribution of this animal to the likelihood?
+<!-- + We have $\mathbf{y} = (2, 1)$. What is the contribution of this animal to the likelihood? -->
 
-\begin{align*}
-\Pr(\mathbf{y} = (2, 1)) &= \sum_{z_1 = 1}^2 \; \sum_{z_2 = 1}^2 w_{z_1, y_1 = 2} w_{z_2, y_2 = 1} \Pr(z_1) \gamma_{z_1, z_2} \color{white}{\Pr(z_{T-1}, z_{T-2},\ldots, z_1, z_1, z_1, z_1)}\\
-&= \sum_{z_1 = 1}^2 \left( w_{z_1, y_1 = 2} w_{z_2 = 1, y_2 = 1} \Pr(z_1) \gamma_{z_1, z_2 = 1} + w_{z_1, y_1 = 2} w_{z_2 = 2, y_2 = 1} \Pr(z_1) \gamma_{z_1, z_2 = 2} \right) \\
-&= w_{z_1 = 1, y_1 = 2} w_{z_2 = 1, y_2 = 1} \delta_1 \gamma_{z_1 = 1, z_2 = 1} + w_{z_1 = 1, y_1 = 2} w_{z_2 = 2, y_2 = 1} \delta_1 \gamma_{z_1 = 1, z_2 = 2}\\
-&= (1 - p) \phi + (1-\phi)
-\end{align*}
+<!-- \begin{align*} -->
+<!-- \Pr(\mathbf{y} = (2, 1)) &= \sum_{z_1 = 1}^2 \; \sum_{z_2 = 1}^2 w_{z_1, y_1 = 2} w_{z_2, y_2 = 1} \Pr(z_1) \gamma_{z_1, z_2} \color{white}{\Pr(z_{T-1}, z_{T-2},\ldots, z_1, z_1, z_1, z_1)}\\ -->
+<!-- &= \sum_{z_1 = 1}^2 \left( w_{z_1, y_1 = 2} w_{z_2 = 1, y_2 = 1} \Pr(z_1) \gamma_{z_1, z_2 = 1} + w_{z_1, y_1 = 2} w_{z_2 = 2, y_2 = 1} \Pr(z_1) \gamma_{z_1, z_2 = 2} \right) \\ -->
+<!-- \end{align*} -->
 
-Note: $w_{z_1 = 1, y_1 = 2} = \Pr(y_1 = 2 | z_1 = 1) = 1$ because we condition on first capture.
+<!-- --- -->
+<!-- # Example -->
+
+<!-- + Let assume an animal is detected, then missed. -->
+
+<!-- + We have $\mathbf{y} = (2, 1)$. What is the contribution of this animal to the likelihood? -->
+
+<!-- \begin{align*} -->
+<!-- \Pr(\mathbf{y} = (2, 1)) &= \sum_{z_1 = 1}^2 \; \sum_{z_2 = 1}^2 w_{z_1, y_1 = 2} w_{z_2, y_2 = 1} \Pr(z_1) \gamma_{z_1, z_2} \color{white}{\Pr(z_{T-1}, z_{T-2},\ldots, z_1, z_1, z_1, z_1)}\\ -->
+<!-- &= \sum_{z_1 = 1}^2 \left( w_{z_1, y_1 = 2} w_{z_2 = 1, y_2 = 1} \Pr(z_1) \gamma_{z_1, z_2 = 1} + w_{z_1, y_1 = 2} w_{z_2 = 2, y_2 = 1} \Pr(z_1) \gamma_{z_1, z_2 = 2} \right) \\ -->
+<!-- &= w_{z_1 = 1, y_1 = 2} w_{z_2 = 1, y_2 = 1}\delta_1 \gamma_{z_1 = 1, z_2 = 1} + w_{z_1 = 1, y_1 = 2} w_{z_2 = 2, y_2 = 1} \delta_1 \gamma_{z_1 = 1, z_2 = 2} -->
+<!-- \end{align*} -->
+
+<!-- Note: $\Pr(z_1 = 1) = \delta_1 = 1$ and $\Pr(z_1 = 2) = 0$. -->
+
+
+<!-- --- -->
+<!-- # Example -->
+
+<!-- + Let assume an animal is detected, then missed. -->
+
+<!-- + We have $\mathbf{y} = (2, 1)$. What is the contribution of this animal to the likelihood? -->
+
+<!-- \begin{align*} -->
+<!-- \Pr(\mathbf{y} = (2, 1)) &= \sum_{z_1 = 1}^2 \; \sum_{z_2 = 1}^2 w_{z_1, y_1 = 2} w_{z_2, y_2 = 1} \Pr(z_1) \gamma_{z_1, z_2} \color{white}{\Pr(z_{T-1}, z_{T-2},\ldots, z_1, z_1, z_1, z_1)}\\ -->
+<!-- &= \sum_{z_1 = 1}^2 \left( w_{z_1, y_1 = 2} w_{z_2 = 1, y_2 = 1} \Pr(z_1) \gamma_{z_1, z_2 = 1} + w_{z_1, y_1 = 2} w_{z_2 = 2, y_2 = 1} \Pr(z_1) \gamma_{z_1, z_2 = 2} \right) \\ -->
+<!-- &= w_{z_1 = 1, y_1 = 2} w_{z_2 = 1, y_2 = 1} \delta_1 \gamma_{z_1 = 1, z_2 = 1} + w_{z_1 = 1, y_1 = 2} w_{z_2 = 2, y_2 = 1} \delta_1 \gamma_{z_1 = 1, z_2 = 2}\\ -->
+<!-- &= (1 - p) \phi + (1-\phi) -->
+<!-- \end{align*} -->
+
+<!-- Note: $w_{z_1 = 1, y_1 = 2} = \Pr(y_1 = 2 | z_1 = 1) = 1$ because we condition on first capture. -->
 
 ---
 ### Estimating the latent states $z$ or not?
@@ -1484,7 +1484,7 @@ Note: $w_{z_1 = 1, y_1 = 2} = \Pr(y_1 = 2 | z_1 = 1) = 1$ because we condition o
 
 --
 
-+ The neat thing with Nimble is that it provides marginalised models through nimbleEcology, we'll get back to it in Class 8.
++ The neat thing with Nimble is that it provides marginalised models through nimbleEcology, we'll get back to it later on.
 
 ---
 # Our model

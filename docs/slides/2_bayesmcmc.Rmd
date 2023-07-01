@@ -500,7 +500,9 @@ tail(theta.post)
 df <- data.frame(x = 1:steps, y = theta.post)
 df %>%
   ggplot() +
-  geom_line(aes(x = x, y = y), size = 1.5, color = wesanderson::wes_palettes$Zissou1[1]) + 
+  geom_line(aes(x = x, y = y), 
+            linetype = 1.5, 
+            color = wesanderson::wes_palettes$Zissou1[1]) + 
   labs(x = "iterations", y = "values from posterior distribution") + 
   ylim(0.1, 0.6)
 ```
@@ -533,8 +535,8 @@ for (t in 2:steps){ # repeat steps 2-4 (step 5)
 
 df2 <- data.frame(x = 1:steps, y = theta.post2)
   ggplot() +
-  geom_line(data = df, aes(x = x, y = y), size = 1.5, color = wesanderson::wes_palettes$Zissou1[1]) + 
-  geom_line(data = df2, aes(x = x, y = y), size = 1.5, color = wesanderson::wes_palettes$Zissou1[3]) + 
+  geom_line(data = df, aes(x = x, y = y), linetype = 1.5, color = wesanderson::wes_palettes$Zissou1[1]) + 
+  geom_line(data = df2, aes(x = x, y = y), linetype = 1.5, color = wesanderson::wes_palettes$Zissou1[3]) + 
   labs(x = "iterations", y = "values from posterior distribution") + 
   ylim(0.1, 0.6)
 ```
@@ -574,15 +576,17 @@ for (t in 2:steps){ # repeat steps 2-4 (step 5)
 df <- data.frame(x = 1:steps, y = theta.post)
 df %>%
   ggplot() +
-  geom_line(aes(x = x, y = y), size = 1, color = wesanderson::wes_palettes$Zissou1[1]) + 
+  geom_line(aes(x = x, y = y), 
+            linetype = 1, 
+            color = wesanderson::wes_palettes$Zissou1[1]) + 
   labs(x = "iterations", y = "values from posterior distribution") + 
   ylim(0.1, 0.6) + 
   geom_hline(aes(yintercept = mean(theta.post)), 
              color = wesanderson::wes_palettes$Zissou1[3],
-             size = 1.2) + 
+             linetype = 1.2) + 
   geom_hline(aes(yintercept = 19/57), 
              color = wesanderson::wes_palettes$Zissou1[5],
-             size = 1.2)
+             linetype = 1.2)
 ```
 ]
 

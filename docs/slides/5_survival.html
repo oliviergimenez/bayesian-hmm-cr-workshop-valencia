@@ -17,7 +17,7 @@ class: center, middle, title-slide
 # Dead or alive: Survival estimation
 ]
 .date[
-### last updated: 2023-06-25
+### last updated: 2023-07-01
 ]
 
 ---
@@ -3805,7 +3805,7 @@ with `\(L\)` the likelihood and `\(K\)` the number of parameters `\(\theta_i\)`.
 
 --
 
-+ Nimble provides the conditional WAIC, where all parameters directly involved in the likelihood are considered. If you would want to calculate the marginal WAIC, integrating over latent variables, you could monitor the relevant nodes and carry out the calculations yourself based on the MCMC output.
++ Nimble provides the conditional WAIC, where all parameters directly involved in the likelihood are considered. If you would want to calculate the marginal WAIC, integrating over latent variables, it is also possible, check out `help(waic)` and section 7.8 of the [User's manual](https://r-nimble.org/html_manual/cha-welcome-nimble.html).
 
 ---
 ## How to compute WAIC in Nimble?
@@ -7623,15 +7623,6 @@ Unreasonable prior `\(\beta \sim N(0, 1000^2)\)`
 Reasonable prior `\(\beta \sim N(2, 0.5^2)\)`
 
 .center[
-
-```
-Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-ℹ Please use `linewidth` instead.
-This warning is displayed once every 8 hours.
-Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-generated.
-```
-
 ![](5_survival_files/figure-html/unnamed-chunk-45-1.svg)&lt;!-- --&gt;
 ]
 ]
@@ -7646,6 +7637,15 @@ generated.
 Unreasonable prior `\(\text{logit}(\phi) = \beta \sim N(0, 10^2)\)`
 
 .center[
+
+```
+Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+generated.
+```
+
 ![](5_survival_files/figure-html/unnamed-chunk-46-1.svg)&lt;!-- --&gt;
 ]
 ]

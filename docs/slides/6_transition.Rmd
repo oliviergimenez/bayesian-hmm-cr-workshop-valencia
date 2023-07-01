@@ -765,7 +765,7 @@ MCMCplot(mcmc.multisite)
 
 
 ---
-### Multinomial logit
+### Multinomial logit (aka softmax)
 
 --
 
@@ -1189,6 +1189,336 @@ MCMCplot(mcmc.multistate)
 
 + Combination of life and dead encounters
 
+
+
+---
+### Access to reproduction
+
+
+<style>
+
+.center2 {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+</style>
+
+.center2[
+![](img/transitions.001.jpeg)
+]
+
+
+---
+### Access to reproduction
+
+
+<style>
+
+.center2 {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+</style>
+
+.center2[
+![](img/transitions.002.jpeg)
+]
+
+
+---
+### Access to reproduction
+
+
+<style>
+
+.center2 {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+</style>
+
+.center2[
+![](img/transitions.003.jpeg)
+]
+
+
+---
+### Access to reproduction
+
+
+<style>
+
+.center2 {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+</style>
+
+.center2[
+![](img/transitions.004.jpeg)
+]
+
+
+---
+### Access to reproduction
+
+
+<style>
+
+.center2 {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+</style>
+
+.center2[
+![](img/transitions.005.jpeg)
+]
+
+
+---
+### Access to reproduction
+
+
+<style>
+
+.center2 {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+</style>
+
+.center2[
+![](img/transitions.006.jpeg)
+]
+
+
+---
+### Access to reproduction
+
+
+<style>
+
+.center2 {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+</style>
+
+.center2[
+![](img/transitions.007.jpeg)
+]
+
+
+---
+### Access to reproduction
+
+
+<style>
+
+.center2 {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+</style>
+
+.center2[
+![](img/transitions.008.jpeg)
+]
+
+
+---
+### Access to reproduction
+
+
+<style>
+
+.center2 {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+</style>
+
+.center2[
+![](img/transitions.009.jpeg)
+]
+
+
+---
+### Access to reproduction
+
+
+<style>
+
+.center2 {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+</style>
+
+.center2[
+![](img/transitions.010.jpeg)
+]
+
+
+---
+### Access to reproduction
+
+
+<style>
+
+.center2 {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+</style>
+
+.center2[
+![](img/transitions.011.jpeg)
+]
+
+
+---
+### Access to reproduction
+
+
+<style>
+
+.center2 {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+</style>
+
+.center2[
+![](img/transitions.012.jpeg)
+]
+
+
+---
+### Access to reproduction
+
+
+<style>
+
+.center2 {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+</style>
+
+.center2[
+![](img/transitions.013.jpeg)
+]
+
+
+---
+### Access to reproduction
+
+
+<style>
+
+.center2 {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+</style>
+
+.center2[
+![](img/transitions.014.jpeg)
+]
+
+
+---
+### Access to reproduction
+
+
+<style>
+
+.center2 {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+</style>
+
+.center2[
+![](img/transitions.015.jpeg)
+]
 
 ---
 ### Access to reproduction

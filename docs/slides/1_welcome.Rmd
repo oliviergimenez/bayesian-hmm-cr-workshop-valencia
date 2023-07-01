@@ -1,6 +1,7 @@
 ---
 title: "Welcoming words"
 date: "last updated: `r Sys.Date()`"
+author: "Olivier Gimenez"
 output:
   xaringan::moon_reader:
     css: [default, "slides-theme.css"]
@@ -25,8 +26,6 @@ library(nimble)
 ```
 
 
-
----
 ## What this workshop is about
 
 ???
@@ -169,7 +168,7 @@ library(nimble)
 
 --
 
-+ Lots of attendees, with huge heterogeneity in knowledge of capture-recapture models, Bayesian methods, `R` and `Nimble`.
++ Attendees with heterogeneity in knowledge of capture-recapture models, Bayesian methods, `R` and `Nimble`.
 
 ???
 
@@ -225,4 +224,12 @@ library(nimble)
 ???
 
 + We will have lectures, and live demos. 
+
+
+---
+## Resources
+
++ Let's explore the website dedicated to our workshop <https://oliviergimenez.github.io/bayesian-hmm-cr-workshop-valencia/>
+
++ FAQ and video recordings from another edition are available, check out <https://oliviergimenez.github.io/bayesian-cr-workshop/>
 

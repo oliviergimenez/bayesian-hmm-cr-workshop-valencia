@@ -57,7 +57,7 @@ knitr::include_graphics(c("img/ToddStudents_Meme.jpg","img/RobRob_Comment_edited
 
 --
 
-+ A library of other methods (SMC, MCEM).
++ A library of other methods (SMC, MCEM, HMC [Stan], automatic differentiation and Laplace approximation [TMB]).
 
 ???
 
